@@ -1,8 +1,5 @@
 from django import forms
-from django.forms import widgets
-from engine import models as enginemodels
-#from libs import formutils
-from datetime import date
+from engine.models import EmailSubscribe
 import re
 
 r_postalcode = re.compile(r'^([A-Z][0-9][A-Z])[ -]?([0-9][A-Z][0-9])$', re.I)
@@ -37,9 +34,11 @@ expiry_choices_year = (
   (2020, '2020'),
 )
 
-class EmailSubForm(forms.Form):
-    email               = forms.EmailField(help_text="you@domain.com", widget=forms.TextInput(attrs={'size':'25'}))
-    city                = forms.ChoiceField(initial=1, choices=[ (obj.id, obj.name) for obj in enginemodels.City.objects.all() ])
+class EmailSubForm(forms.ModelForm):
+    class Meta:
+        model = EmailSubscribe
+#    email               = forms.EmailField(help_text="you@domain.com", widget=forms.TextInput(attrs={'size':'25'}))
+#    city                = forms.ChoiceField(initial=1, choices=[ (obj.id, obj.name) for obj in enginemodels.City.objects.all() ])
 
 
 class SignupForm(forms.Form):

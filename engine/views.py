@@ -1,9 +1,9 @@
-
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
+from django.utils.translation import ugettext as _
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -83,24 +83,18 @@ def city_subscribe(request, city_slug):
     try:
         city = City.objects.get(slug=city_slug)
     except:
-        return HttpResponseRedirect('/deals/groupon-clone/')
+        messages.error(request, _('Cannot request subscription for non existent city.'))
+        return HttpResponseRedirect(reverse('index'))
     
     if request.method == 'POST': # If the form has been submitted...
         form = EmailSubForm(request.POST)
         if form.is_valid():
-            cd = form.cleaned_data
-            esub = EmailSubscribe()
-            esub.email = cd.get('email')
-            ecity = City.objects.get(id=int(cd.get('city')))
-            esub.city = ecity
-            esub.save()
-            
-            user_msg = "Thanks for subscribing!"
-            messages.add_message(request, messages.SUCCESS, user_msg)
+            form.save()
+            messages.success(request, _('Thanks for subscribing!'))
             return HttpResponseRedirect(reverse('index'))
-        else:
-            initial_data = { 'city': city.id }
-            form = EmailSubForm(initial=initial_data)
+    else:
+        initial_data = { 'city': city.id }
+        form = EmailSubForm(initial=initial_data)
     
     return render_to_response('email_subscribe.html', {
                 'city' : city,
@@ -114,15 +108,7 @@ def profile(request):
 
 #@login_required  # unlock to make fb work!!
 def index(request):
-    try:
-        user_msg = request.GET.get('user_msg', None)
-    except:
-        user_msg = None
-    
-    if user_msg:
-        return HttpResponseRedirect('/deals/groupon-clone/?user_msg=' + user_msg)
-    else:
-        return HttpResponseRedirect('/deals/groupon-clone/')
+    return HttpResponseRedirect(reverse('todays-deal'))
 
 
 #  return render_to_response('index.html', {

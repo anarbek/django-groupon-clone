@@ -68,8 +68,8 @@ class City(models.Model):
     """
     City database (latitude, longitude, postalcode)
     """
-    name = models.CharField("City Name", max_length=60)
-    slug = models.SlugField()
+    name = models.CharField("City Name", max_length=60, unique=True)
+    slug = models.SlugField(unique=True)
     # TODO: is_active is used for what?
     is_active = models.BooleanField(default=False)
     province = models.CharField("Province", max_length=2, choices=PROVINCES)
@@ -225,12 +225,13 @@ class Deal(models.Model):
 
  
 class EmailSubscribe(models.Model):
-    email      = models.EmailField(blank=True, help_text="Email address of contact")
+    email      = models.EmailField(help_text="Email address of contact")
     city       = models.ForeignKey(City)
     
     class Meta:
         verbose_name = 'EmailSubscribe'
         verbose_name_plural = 'EmailSubscribes'
+        unique_together = ( ('city', 'email'),)
         
     def __unicode__(self):
         return self.email
