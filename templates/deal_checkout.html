@@ -1,85 +1,8 @@
 {% extends "base.html" %}
 
-{% block extralinks %}
-{% endblock %}
-
-{% block extracss %}
-
-/* float clearing for IE6 */
-* html .clearfix{
-  height: 1%;
-  overflow: visible;
-}
-
-/* float clearing for IE7 */
-*+html .clearfix{
-  min-height: 1%;
-}
-
-/* float clearing for everyone else */
-.clearfix:after{
-  clear: both;
-  content: ".";
-  display: block;
-  height: 0;
-  visibility: hidden;
-  font-size: 0;
-}
-
-
-div.error-box  {
-    border: 1px solid #d00000;
-    background-color: #F79992;
-    -moz-border-radius: 0.5em;
-    -webkit-border-radius: 0.5em;
-    margin: 0.5em 0;
-    padding: 6px 12px;
-    color: white;
-}
-
-div.error-box div.title  {
-    font-weight: bold;
-    margin-bottom: 0.5em;
-}
-
-div.error-msg {
-    width: 250px;
-    color: #c00;
-    float: left;
-}
-
-
-.field {
-  width: 110px;
-  margin-bottom: 15px;
-  height: 50px;
-
-}
-.double_field {
-  width: 230px;
-  margin-bottom: 15px;
-  height: 50px;
-
-}
-
-.passwd_field {
-  width: 390px;
-  margin-bottom: 15px;
-  height: 50px;
-}
-
-#quantity_box {
-  margin-bottom: 15px;
-}
-
-
-
-{% endblock extracss %}
-
 {% block extrascripts %}
     <script type="text/javascript" src="/media/js/jquery.countdown.js"></script>
 {% endblock %}
-
 
 {% block extrajs %}
     function CurrencyFormatted(amount)
@@ -134,7 +57,6 @@ div.error-msg {
 {% endblock extrajs %}
 
 {% block content %}
-
    <div id="main">
 			<div id="twocolumns">
 				<div class="twocolumns-holder">
@@ -268,44 +190,8 @@ div.error-msg {
 
 					</div>
 					<div id="sidebar">
-						<div class="sb-box">
-							<div class="t"></div>
-							<div class="c">
-								<div class="content">
-									<h2>Got a Gift Card?</h2>
-									<ul class="social-services">
-										<li>
-											<a href="#">
-												<img alt="giftcard" src="/media/images/logo4.gif" width="69" height="30" />
-												<strong>>> Redeem<<</strong>
-											</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div class="b"></div>
-						</div>
-						<div class="sb-box">
-							<div class="t"></div>
-							<div class="c">
-								<div class="content">
-                                                                        <h2>Payment Questions?</h2>
-<p><h4>What happens after I buy?</h4>
-    Within a few minutes you'll receive an email receipt confirming that your card has been charged. Your receipt will describe how to print your MassiveCoupon, and your MassiveCoupon will include everything you need to know to redeem it. If the deal hasn't tipped yet, your receipt will arrive when it does. If the deal doesn't tip before time runs out, your card isn't charged and nobody gets the deal.</p>
-
-<p><h4>What if I buy as a gift?</h4>
-    When you buy a MassiveCoupon as a gift and choose to email it, an email will be sent to the recipient as soon as your card is charged, with all the instructions they need to claim their gift with a single click. If you chose to print your gift, you'll be able to do that on 'My Gifts' once your card has been charged.</p>
-
-<p><h4>Can I change or cancel my purchase?</h4>
-    Yes, you can modify your purchase up until the deal closes, as long as you haven't printed your MassiveCoupons - once you print, you can no longer change your purchase. You'll see all your purchases on 'My MassiveCoupons', with a link to 'Change my purchase' where appropriate.</p>
-
-<p><h4>Is this safe?</h4>
-    Extremely. This page is SSL encrypted (2048-bit) and all transactions are done through Paypal, the industry standard for internet payment. The little 'padlock' icon on your browser confirms this. At no time is your credit card information stored on our servers.</p>
-
-								</div>
-							</div>
-							<div class="b"></div>
-						</div>
+						{% include "sidebar/_got_a_gift_card.html" %}
+						{% include "sidebar/_payment_questions.html" %}
 					</div>
 				</div>
 			</div> 
