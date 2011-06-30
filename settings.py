@@ -2,7 +2,7 @@
 import os
 import logging
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__) 
 ADMINS = (
