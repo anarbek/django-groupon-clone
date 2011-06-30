@@ -1,10 +1,9 @@
 from django import forms
 from django.forms import widgets
-from massivecoupon.engine import models as enginemodels
-from massivecoupon.libs import formutils
+from engine import models as enginemodels
+#from libs import formutils
 from datetime import date
 import re
-import pdb
 
 r_postalcode = re.compile(r'^([A-Z][0-9][A-Z])[ -]?([0-9][A-Z][0-9])$', re.I)
 r_date = re.compile(r'^(\d\d\d\d)[/-](\d{1,2})[/-](\d{1,2})$')
@@ -44,32 +43,26 @@ class EmailSubForm(forms.Form):
 
 
 class SignupForm(forms.Form):
-  full_name           = forms.CharField(max_length=128, widget=forms.TextInput(attrs={'size':'30'}) )
-  password            = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'size':'12'}) )
-  password_verify     = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'size':'12'}))
-  email               = forms.EmailField(help_text="you@domain.com", widget=forms.TextInput(attrs={'size':'30'}))
-
-
-  def clean(self):
-    """
-    Validate fields to make sure everything's as expected.
-    - postalcode is in right format and actually exists
-    - service actually exists
-    """
-    cd = self.cleaned_data
-
-    if 'password' in cd and 'password_verify' in cd:
-      if self.cleaned_data['password'] != self.cleaned_data['password_verify']:
-        self._errors['password'] = forms.util.ErrorList(["Passwords don't match!"])
-
-    else:
-      self._errors['password'] = forms.util.ErrorList(["Please enter and confirm your password"])
-
+    full_name           = forms.CharField(max_length=128, widget=forms.TextInput(attrs={'size':'30'}) )
+    password            = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'size':'12'}) )
+    password_verify     = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'size':'12'}))
+    email               = forms.EmailField(help_text="you@domain.com", widget=forms.TextInput(attrs={'size':'30'}))
+    
+    def clean(self):
+        """
+        Validate fields to make sure everything's as expected.
+        - postalcode is in right format and actually exists
+        - service actually exists
+        """
+        cd = self.cleaned_data
+        
+        if 'password' in cd and 'password_verify' in cd:
+            if self.cleaned_data['password'] != self.cleaned_data['password_verify']:
+                self._errors['password'] = forms.util.ErrorList(["Passwords don't match!"])
+            else:
+                self._errors['password'] = forms.util.ErrorList(["Please enter and confirm your password"])
 #      raise forms.ValidationError(_(u'Please enter and confirm your password'))
-
-
-    return cd
-
+        return cd
 
 
 class LoginForm(forms.Form):
@@ -93,13 +86,11 @@ class LoginForm(forms.Form):
 
 
 class DealCheckoutForm(forms.Form):
-
-  full_name           = forms.CharField(max_length=128, widget=forms.TextInput(attrs={'size':'30'}) )
-  password            = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'size':'12'}) )
-  password_verify     = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'size':'12'}))
-  email               = forms.EmailField(help_text="you@domain.com", widget=forms.TextInput(attrs={'size':'30'}))
-
-  quantity            = forms.IntegerField(initial=1, widget=forms.TextInput(attrs={'size':'2'}))
+    full_name           = forms.CharField(max_length=128, widget=forms.TextInput(attrs={'size':'30'}) )
+    password            = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'size':'12'}) )
+    password_verify     = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'size':'12'}))
+    email               = forms.EmailField(help_text="you@domain.com", widget=forms.TextInput(attrs={'size':'30'}))
+    quantity            = forms.IntegerField(initial=1, widget=forms.TextInput(attrs={'size':'2'}))
 
 #  cardholder_name     = forms.CharField(max_length=128, widget=forms.TextInput(attrs={'size':'30'}))
 #  type                = forms.ChoiceField( choices = enginemodels.CC_TYPE )
@@ -113,23 +104,17 @@ class DealCheckoutForm(forms.Form):
 #  province            = forms.ChoiceField(choices=enginemodels.PROVINCES)
 #  country             = forms.ChoiceField(initial="CA", choices=[ (obj.iso, obj.name) for obj in enginemodels.Country.objects.all() ])
 
-  def clean(self):
-    """
-    Validate fields to make sure everything's as expected.
-    - postalcode is in right format and actually exists
-    - service actually exists
-    """
-    cd = self.cleaned_data
-
-    if 'password' in cd and 'password_verify' in cd:
-      if self.cleaned_data['password'] != self.cleaned_data['password_verify']:
-        self._errors['password'] = forms.util.ErrorList(["Passwords don't match!"])
-
-    else:
-      self._errors['password'] = forms.util.ErrorList(["Please enter and confirm your password"])
-
+    def clean(self):
+        """
+        Validate fields to make sure everything's as expected.
+        - postalcode is in right format and actually exists
+        - service actually exists
+        """
+        cd = self.cleaned_data
+        if 'password' in cd and 'password_verify' in cd:
+            if self.cleaned_data['password'] != self.cleaned_data['password_verify']:
+                self._errors['password'] = forms.util.ErrorList(["Passwords don't match!"])
+            else:
+                self._errors['password'] = forms.util.ErrorList(["Please enter and confirm your password"])
 #      raise forms.ValidationError(_(u'Please enter and confirm your password'))
-
-
-    return cd
-
+        return cd

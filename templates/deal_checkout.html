@@ -144,7 +144,7 @@ div.error-msg {
               <div class="box-t"></div>
               <div class="box-c" style="height: 118px; padding-top: 0px;">
 
-                <form  class="dealcheckoutform" id="id_dealcheckoutform" method="POST" >
+                <form  class="dealcheckoutform" id="id_dealcheckoutform" method="POST" >{% csrf_token %}
 
                 <h2 style="margin-top: 0px;">Your Purchase</h2>
                 <a href="#main-nav" class="accessibility">skip to main navigation</a>
@@ -217,9 +217,13 @@ div.error-msg {
 
     <div class="right" style="text-align: center; padding-left: 10px; padding-right: 10px; width: 330px; float: left; background: #DDEDCC">
       <div style="height: 200px;">
+      	{% if request.user.is_authenticated %}
         <h2>Already have an Account?</h3>
-        <p style="line-height: 1.4;">If you have purchased a MassiveCoupon before, you can sign in using your email address.</p>
-        <a href="/user/login/"><img src="/media/images/signin-button.gif"></a>
+        <p style="line-height: 1.4;">If you have purchased a {{ COMPANY_NAME }} before, you can sign in using your email address.</p>
+        <a href="{% url user-login %}"><img src="/media/images/signin-button.gif"></a>
+        {% else %}
+        <h2>Hmm... you already have an account...</h2>
+        {% endif %}
       </div>
     </div>
 
@@ -250,7 +254,7 @@ div.error-msg {
 {% endcomment %}
 
 {% comment %}<input type="submit"  value="Complete My Order" alt="Complete My Order" id="buy" onClick="submitForm(this.form);"/>
-  <a style="margin-left: 80px;" href="http://www.massivecoupon.com/">No Thanks.</a>
+  <a style="margin-left: 80px;" href="{{ url index }}">No Thanks.</a>
 {% endcomment %}
 
 </form>

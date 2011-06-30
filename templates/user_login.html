@@ -104,7 +104,7 @@ div.error-msg {
         </div>
     {% endif %}
 
-                <form  class="loginform" id="id_loginform" method="POST" >
+                <form  class="loginform" id="id_loginform" method="POST" >{% csrf_token %}
                   <div>
                     <h2>Email</h2>
                     <div class="field">{{ form.email }}<div class="error-msg">{% if form.errors.email %}{{ form.errors.email }}{% endif %}</div></div>

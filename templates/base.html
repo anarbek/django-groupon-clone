@@ -1,17 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-{% comment %}
-MassiveCoupon - Base HTML Page
-{% endcomment %}
-
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
 <head>
-    <link rel="shortcut icon" href="/media/images/favicon.ico" >
-
-    <title>{% block title %}Massive Coupon - Open source Groupon clone{% endblock title %}</title>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	<link rel="shortcut icon" href="/media/images/favicon.ico" />
+	<title>{% block title %}{{ COMPANY_NAME }} - {{ WEBSITE_TITLE }}{% endblock title %}</title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="{% block metakeywords %}{{ page_metakeywords }}{% endblock metakeywords %}" name="Keywords"/>
     <meta content="{% block metadescription %}{{ page_metadescription }}{% endblock metadescription %}" name="Description"/>
     <meta content="en" http-equiv="Content-Language"/>
@@ -39,7 +31,6 @@ MassiveCoupon - Base HTML Page
     {% block extrascripts %}
     {% endblock extrascripts %}
     <script language="javascript">
-
   $().ready(function()
   {
     $("#user-msg-close").click(function () {
@@ -56,38 +47,26 @@ MassiveCoupon - Base HTML Page
 
     {% block extrajs %}
     {% endblock extrajs %}
-
     </script>
-
-
 </head>
 
 <body>
-
-  <div class="city-slider" style="display: none; overflow:hidden;">
-   <ul>
-     {% for city in cities %}
-       <li><a href="{% if city.is_active %}/deals/{{ city.slug }}/{% else %}/{{ city.slug }}/subscribe/{% endif %}">{{ city.name  }}</a></li>
-     {% endfor %}
-   </ul>
-
-  </div>
-
-  <div class="email-slider" style="display: none; overflow:hidden;">
-    <form>
-      Email
-    </form>
-  </div>
-
-  <div id="wrapper">
-
-      {% block content %}{% endblock %}
-                
-      {% include "footer.html" %}
-                
-  </div> <!-- end wrapper -->
-
-
+	<div class="city-slider" style="display: none; overflow:hidden;">
+	<ul>
+	{% for city in cities %}
+		<li><a href="{% if city.is_active %}{% url city-deals city.slug %}{% else %}{%url city-subscribe city.slug %}{% endif %}">{{ city.name  }}</a></li>
+	{% endfor %}
+	</ul>
+	</div>
+	
+	<div class="email-slider" style="display: none; overflow:hidden;">
+	<form>Email</form>
+	</div>
+	
+	<div id="wrapper">
+	{% block content %}{% endblock %}
+	{% include "footer.html" %}            
+	</div> <!-- end wrapper -->
 </body>
 </html>
 
