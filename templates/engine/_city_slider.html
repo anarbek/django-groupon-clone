@@ -1,0 +1,7 @@
+<div class="city-slider" style="display: none; overflow:hidden;">
+	<ul>
+	{% for city in cities %}
+		<li><a href="{% if city.is_active %}{% url city-deals city.slug %}{% else %}{%url city-subscribe city.slug %}{% endif %}">{{ city.name  }}</a></li>
+	{% endfor %}
+	</ul>
+</div>

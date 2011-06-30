@@ -10,7 +10,7 @@
  
 ## Backlog
  * Add user registration
- * Refactor cities variable required by all the templates; create a template tag or use template processor
+ * <strike>Refactor cities variable required by all the templates; create a template tag or use template processor</strike>
  * <strike>Add flatpages for static content</strike>
  * Clean up inline CSS and JS
  * Clean up template: indentation needs to be corrected

@@ -22,7 +22,6 @@ from engine.forms import SignupForm, LoginForm, EmailSubForm, DealCheckoutForm
 
 
 def user_signup(request):
-    cities = City.objects.all()
     if request.method == 'POST': # If the form has been submitted...
         form = SignupForm(request.POST)
         
@@ -55,7 +54,6 @@ def user_signup(request):
     return render_to_response('user_signup.html', 
                               {
                                'form' : form,
-                               'cities' : cities,
                                }, 
                               context_instance=RequestContext(request))
 
@@ -66,8 +64,6 @@ def user_logout(request):
 
 
 def user_login(request):
-    cities = City.objects.all()
-    
     if request.method == 'POST': # If the form has been submitted...
         form = LoginForm(request.POST)
         
@@ -80,7 +76,6 @@ def user_login(request):
             
     return render_to_response('user_login.html', {
                 'form' : form,
-                'cities' : cities,
               }, context_instance=RequestContext(request))
 
     
@@ -107,17 +102,14 @@ def city_subscribe(request, city_slug):
             initial_data = { 'city': city.id }
             form = EmailSubForm(initial=initial_data)
     
-    cities = City.objects.all()
     return render_to_response('email_subscribe.html', {
                 'city' : city,
                 'form' : form,
-                'cities' : cities,
               }, context_instance=RequestContext(request))
 
 
 @login_required
 def profile(request):
-    cities = City.objects.all()
     coupons = Coupon.objects.filter(user=request.user, status=STATUS_ACTIVE)
 
 #@login_required  # unlock to make fb work!!
@@ -296,15 +288,12 @@ def deal_checkout(request, slug):
         initial_data = {}
         form = DealCheckoutForm(initial=initial_data)
         
-    cities = City.objects.all()
-    
     return render_to_response('deal_checkout.html', {
                 'form' : form,
                 'deal' : deal,
                 'user_msg' : user_msg,
                 'must_login_error' : must_login_error,
                 'must_login_email' : must_login_email,
-                'cities' : cities,
               }, context_instance=RequestContext(request))
 
 
@@ -329,13 +318,11 @@ def deal_detail(request, slug=None):
     else:
         countdown_time = -1
     
-    cities = City.objects.all()
     return render_to_response('deal_detail.html', {
              #   'now' : now,
                 'user_msg' : user_msg,
                 'deal' : deal,
                 'countdown_time' : countdown_time,
-                'cities' : cities,
               }, context_instance=RequestContext(request))
 
    
@@ -352,12 +339,10 @@ def city_deals(request, city_slug):
     else:
         messages.error(request, "There are no deals opened for this city.")
     
-    cities = City.objects.all()
     return render_to_response('deal_detail.html', {
              #   'now' : now,
                 'deal' : deal,
                 'countdown_time' : countdown_time,
-                'cities' : cities,
               }, context_instance=RequestContext(request))
         
     return HttpResponse("City %s" % city_slug)
