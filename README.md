@@ -1,5 +1,12 @@
 ## Status
  * Phase: Alpha / Under development
+
+## Installation
+ * Checkout the project
+ * Make sure all requirements are installed: `pip install -r requirements.txt`
+ * Adjust your settings (DB, etc)
+ * Create DB structure and import initial data: `./manage.py syncdb`
+ 
  
 ## Backlog
  * Add user registration
@@ -11,6 +18,7 @@
  * Implement Reviews ?!
  * Localization (views, templates)
  * Add url to Advetiser (maybe)
+
  
 ## Original README
 Massive Coupon - An Open Source Crowd Buying engine
