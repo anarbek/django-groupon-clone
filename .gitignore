@@ -1,4 +1,4 @@
-*.pyc
+#*.pyc
 groupon.db
 .project
 .pydevproject
