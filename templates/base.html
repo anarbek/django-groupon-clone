@@ -50,7 +50,7 @@
     </script>
 </head>
 
-<body>
+<body class="{% block body-class %}{% endblock %}">
 	{% load engine_extras %}
 	{% show_city_slider %}
 	
