@@ -2,5 +2,6 @@
 groupon.db
 .project
 .pydevproject
+.settings/
 local_settings.py
 media/
