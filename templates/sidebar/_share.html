@@ -1,0 +1,33 @@
+<div class="sb-box">
+	<div class="t"></div>
+	<div class="c">
+		<div class="content">
+			<h2>Share this deal!</h2>
+			<ul class="social-services">
+				<li><script type="text/javascript">
+function callPublish(msg, attachment, action_link) {
+  FB.ensureInit(function () {
+    FB.Connect.streamPublish('', attachment, action_link);
+  });
+}</script> <a href=""
+					onclick="callPublish('',{'name':'You should get this coupon from {{ COMPANY_NAME }}!','href':'{{ WEBSITE_URL }}','description':'{{ deal.title }}'},null);return false;">
+
+						<img alt="facebook" src="/media/images/ico-facebook.gif" width="63" height="53" /> <strong>facebook</strong> </a></li>
+				<li><a target="_blank" href="http://twitter.com/home?status={{ deal.title}} {{ WEBSITE_URL }}{% url deal-detail deal.slug %}">
+						<img alt="twitter" src="/media/images/ico-twitter.gif" width="63" height="53" /> <strong>twitter</strong> </a></li>
+				<li><a href="mailto:?body={{ deal.title }} {{ WEBSITE_URL }}{% url deal-detail deal.slug %}"> <img alt="Email a friend!"
+						src="/media/images/ico-email.gif" width="63" height="53" /> <strong>Email a friend!</strong> </a></li>
+			</ul>
+			<div class="give-box">
+				<div class="holder">
+					<h3>Give a Massive Coupon as a Gift!</h3>
+					<div class="give-txt">
+						<img class="png" alt="image description" src="/media/images/ico-coupon.png" width="74" height="47" /> <a class="btn-buy-gift-card"
+							href="#">Buy Gift Card</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="b"></div>
+</div>

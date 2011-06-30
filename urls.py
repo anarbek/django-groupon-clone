@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^suggestions$', 'engine.views.suggestions', name='suggestions'),
 
     # Login/logout
-    url(r'^user/signup/$', 'engine.views.user_signup', name='user_signup'),
+    url(r'^user/signup/$', 'engine.views.user_signup', name='user-signup'),
     url(r'^user/login/$', 'engine.views.user_login', name='user-login'),
     url(r'^user/logout/$', 'engine.views.user_logout', name='user_logout'),
 

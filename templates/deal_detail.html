@@ -21,272 +21,136 @@ function liftOff() {
 {% endblock extrajs %}
 
 {% block content %}
-<div id="FB_HiddenContainer"  style="position:absolute; top:-10000px; width:0px; height:0px;" ></div>
-
-<script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US" type="text/javascript"></script><script type="text/javascript">FB.init("{{ FACEBOOK_API_KEY }}");</script>
-<script type="text/javascript">
-    FB_RequireFeatures(["XFBML"],
-        function() {
-            FB.Facebook.init("{{ FACEBOOK_API_KEY }}", "/xd_receiver.htm")
-        }
-    );
-    function facebookConnect(form){
-        FB.Connect.requireSession();
-        FB.Facebook.get_sessionState().waitUntilReady(
-            function(){
-                form.submit();
-            }
-        );
-    }
-</script>
-
-{% comment %}
-    <div>
-        {% if user.is_authenticated %}
-        Welcome, {{ user }}
-        <a href="{% url user_logout %}">Log out</a>
-    {% else %}
-        Welcome, new user!
-        <a href="{% url user_login %}">Log in</a>
-    {% endif %}
-    </div>
-{% endcomment %}
-
- 	<div id="main">
- 		<div id="twocolumns">
- 			<div class="twocolumns-holder">
- 				<div id="content">
- 					<div class="box">
- 						<div class="box-t"></div>
- 							<div class="box-c">
- 								<h1><span class="mark">Today's Deal:</span> {{ deal.title }}</h1>
-								<a href="#main-nav" class="accessibility">skip to main navigation</a>
-								<div class="asides">
-									<div class="aside1">
-										<div class="visual">
-											<img alt="image description" src="/media/{{deal.image}}" width="438" height="291" />
-										</div>
-										<div class="fine-box">
-											<div class="fb-holder">
-												<div class="fb-block">
-													<h2>The fine print</h2>
-													{{ deal.fine_print }}
-													<p><strong><a href="#">Read the deal FAQ</a></strong> for the basics</p>
-												</div>
-												<div class="fb-block">
-													<h2>Main Highlights</h2>
-													<ul>{{ deal.highlights|safe }}</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="buy">
-										<div class="b-frame">
-											<div class="price">
-												<div class="frame">
-													<a href="{% url deal-checkout deal.slug %}"><strong>${{ deal.deal_price|floatformat }}</strong> <span>Buy</span></a>
-												</div>
-											</div>
-											<div class="details">
-												<div class="details-holder">
-													<dl>
-														<dt>Value</dt>
-														<dd><strong>${{ deal.retail_price|floatformat }}</strong></dd>
-													</dl>
-													<dl class="list2">
-														<dt>Discount</dt>
-														<dd><strong>{{ deal.discount_percentage|floatformat }}%</strong></dd>
-													</dl>
-													<dl class="list3">
-														<dt>You save</dt>
-														<dd><strong>${{ deal.discount_value|floatformat }}</strong></dd>
-													</dl>
-												</div>
-											</div>
-											<a class="buy-for-friend" href="#"><span><strong>Buy it for a Friend</strong></span></a>
-											<div class="buy-block time">
-												<h3>Time left to buy</h3>
-												<div class="txt">
-													{% ifequal countdown_time -1 %}SOLD OUT!!!{% endifequal %}
-												</div>
-											</div>
-											<div class="buy-block">
-												<div class="deal-txt">
-													<h3>{{ deal.num_sold }} Bought</h3>
-													{% if deal.is_deal_on %}
-									  					<p>Tipped at {{ deal.tipped_at|time }} with {{ deal.tipping_point }} bought</p>
-									  				{% else %}
-									  					<div id="pb1"></div>
-									  					<p>{{ deal.num_needed }} needed for the deal to go live!</p>
-									  				{% endif %}
-									  			</div>
-									  			{% if deal.is_deal_on %}
-									  			<div class="deal-state">
-													<strong>The Deal in On</strong>
-													<img alt="The Deal in On" src="/media/images/ico-deal-on.gif" width="38" height="38" />
-												</div>
-												{% endif %}
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="box-b"></div>
-						</div>
-						<div class="box box2">
-							<div class="box-t"></div>
-							<div class="box-c">
-								<div class="content-area">
-									<p>{{ deal.description|safe }}</p>
-									<h2>Reviews</h2>
-									<p>Ex. SomeBlog gives it 4.5 stars, Yelpers give it 3.5, and TripAdvisor gives it four owl eyes for stunning spa services: </p>
-									<ul class="reviews-list">
-										<li>
-											<blockquote cite="#">
-												<div>
-													<q>I originally went there to get my hair done for a wedding, but was so pleased, went back for a massage. Very reasonably priced and the service was just great. Will be going back to check out other things on their menu.</q>
-													<cite> - <a href="#">Linda and Michael</a></cite>
-												</div>
-											</blockquote>
-										</li>
-										<li>
-											<blockquote cite="#">
-												<div>
-													<q>Good feel to the place. Nice staff. Took their time making you feel pampered.</q>
-													<cite> - <a href="#">Sara</a></cite>
-												</div>
-											</blockquote>
-										</li>
-									</ul>
-									<div class="world-street-heading">
-										<h2 class="world-street">The world on the street:</h2>
-										<img class="png" alt="image description" src="/media/images/img2.png" width="58" height="66" />
-										<a class="logo2" href="#">MassiveCoupon.com</a>
-									</div>
-									<div class="world-txt">
-										<div class="holder">
-											<h3>~ Love is in the Spa Air ~</h3>
-											<p>Ziggy really likes this place! </p>
-										</div>
-									</div>
-								</div>
-								<div class="aside2">
-									<h2>The Company</h2>
-									<ul class="company-list">
-										<li>
-											<strong class="title">{{ deal.myadvertiser.name }}</strong>
-											<p><a href="#">{{ deal.advertiser.url }}</a></p>
-											<address>{{ deal.advertiser.address }}<br />{{ deal.advertiser.city }}, {{ deal.advertiser.province }} {{ deal.advertiser.postalcode }}</address>
-											<p><img src="http://maps.google.com/maps/api/staticmap?center={{ deal.latitude }},{{ deal.longitude }}&zoom=14&size=195x400&maptype=roadmap&markers=color:blue%7Clabel:1%7C{{ deal.latitude }},{{ deal.longitude }}&sensor=false"/></p>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div class="box-b"></div>
-						</div>
-					</div>
-					<div id="sidebar">
-						<div class="discuss">
-							<div class="t"></div>
-							<div class="c">
-								<div class="content">
-									<div class="heading">
-										<h3>Discuss the Deal</h3>
-									</div>
-									<div class="txt">
-										<img class="photo png" alt="image description" src="/media/images/img3.png" width="45" height="45" />
-										<p><a href="#" target="_blank">This was a great spa experience, would definitely go back!</a></p>
-										<span class="bg">&nbsp;</span>
-									</div>
-									<div class="btm-txt">
-										<p><a href="#" target="_blank">Join the Discussion</a></p>
-										<p>7 comments</p>
-									</div>
-								</div>
-							</div>
-							<div class="b"></div>
-						</div>
-						<div class="sb-box">
-							<div class="t"></div>
-							<div class="c">
-								<div class="content">
-									<h2>Share this deal!</h2>
-									<ul class="social-services">
-										<li>
-
-<script type="text/javascript">
-function callPublish(msg, attachment, action_link) {
-  FB.ensureInit(function () {
-    FB.Connect.streamPublish('', attachment, action_link);
-  });
-}</script>
-
-											<a href="" onclick="callPublish('',{'name':'You should get this coupon from {{ COMPANY_NAME }}!','href':'{{ WEBSITE_URL }}','description':'{{ deal.title }}'},null);return false;">
-
-												<img alt="facebook" src="/media/images/ico-facebook.gif" width="63" height="53" />
-												<strong>facebook</strong>
-											</a>
-										</li>
-										<li>
-											<a target="_blank" href="http://twitter.com/home?status={{ deal.title}} {{ WEBSITE_URL }}{% url deal-detail deal.slug %}">
-												<img alt="twitter" src="/media/images/ico-twitter.gif" width="63" height="53" />
-												<strong>twitter</strong>
-											</a>
-										</li>
-										<li>
-											<a href="mailto:?body={{ deal.title }} {{ WEBSITE_URL }}{% url deal-detail deal.slug %}">
-												<img alt="Email a friend!" src="/media/images/ico-email.gif" width="63" height="53" />
-												<strong>Email a friend!</strong>
-											</a>
-										</li>
-									</ul>
-									<div class="give-box">
-										<div class="holder">
-											<h3>Give a Massive Coupon as a Gift!</h3>
-											<div class="give-txt">
-												<img class="png" alt="image description" src="/media/images/ico-coupon.png" width="74" height="47" />
-												<a class="btn-buy-gift-card" href="#">Buy Gift Card</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="b"></div>
-						</div>
-						<div class="sb-box business">
-							<div class="t"></div>
-							<div class="c">
-								<div class="content">
-									<strong class="title"><span>Get Your Business on</span> <img alt="{{ COMPANY_NAME }}" src="/media/images/logo4.gif" width="69" height="30" /></strong>
-									<div class="business-txt">
-										<img alt="image description" src="/media/images/ico-business.gif" width="48" height="40" />
-										<p><a href="#"><strong>Learn <span>More</span></strong></a> about how {{ COMPANY_NAME }} can help bring tons of customers to your door</p>
-									</div>
-								</div>
-							</div>
-							<div class="b"></div>
-						</div>
-						<div class="sb-box">
-							<div class="t"></div>
-							<div class="c">
-								<div class="content">
-                                                                        <h3>How {{ COMPANY_NAME }} Works</h3>
-									<p>
-   1. We feature an amazing deal in your city available for a limited time<br><br>
-   2. You can only get the deal if enough people join the group - spread the word!<br><br>
-   3. If enough people join you get a printable electronic voucher<br><br>
-   4. Use the voucher to redeem your {{ COMPANY_NAME }}!<br>
-									</p>
-								</div>
-							</div>
-							<div class="b"></div>
-						</div>
-					</div>
+<h1><span class="mark">Today's Deal:</span> {{ deal.title }}</h1>
+<a href="#main-nav" class="accessibility">skip to main navigation</a>
+<div class="asides">
+	<div class="aside1">
+		<div class="visual">
+			<img alt="image description" src="/media/{{deal.image}}" width="438" height="291" />
+		</div>
+		<div class="fine-box">
+			<div class="fb-holder">
+				<div class="fb-block">
+					<h2>The fine print</h2>
+					{{ deal.fine_print }}
+					<p><strong><a href="#">Read the deal FAQ</a></strong> for the basics</p>
 				</div>
-			</div> 
-			
-         {% include "header.html" %}
-			
-		</div> <!-- end main -->
-	
-{% endblock content %}	
+				<div class="fb-block">
+					<h2>Main Highlights</h2>
+					<ul>{{ deal.highlights|safe }}</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="buy">
+		<div class="b-frame">
+			<div class="price">
+				<div class="frame">
+					<a href="{% url deal-checkout deal.slug %}"><strong>${{ deal.deal_price|floatformat }}</strong> <span>Buy</span></a>
+				</div>
+			</div>
+			<div class="details">
+				<div class="details-holder">
+					<dl>
+						<dt>Value</dt>
+						<dd><strong>${{ deal.retail_price|floatformat }}</strong></dd>
+					</dl>
+					<dl class="list2">
+						<dt>Discount</dt>
+						<dd><strong>{{ deal.discount_percentage|floatformat }}%</strong></dd>
+					</dl>
+					<dl class="list3">
+						<dt>You save</dt>
+						<dd><strong>${{ deal.discount_value|floatformat }}</strong></dd>
+					</dl>
+				</div>
+			</div>
+			<a class="buy-for-friend" href="#"><span><strong>Buy it for a Friend</strong></span></a>
+			<div class="buy-block time">
+				<h3>Time left to buy</h3>
+				<div class="txt">
+					{% ifequal countdown_time -1 %}SOLD OUT!!!{% endifequal %}
+				</div>
+			</div>
+			<div class="buy-block">
+				<div class="deal-txt">
+					<h3>{{ deal.num_sold }} Bought</h3>
+					{% if deal.is_deal_on %}
+	  					<p>Tipped at {{ deal.tipped_at|time }} with {{ deal.tipping_point }} bought</p>
+	  				{% else %}
+	  					<div id="pb1"></div>
+	  					<p>{{ deal.num_needed }} needed for the deal to go live!</p>
+	  				{% endif %}
+	  			</div>
+	  			{% if deal.is_deal_on %}
+	  			<div class="deal-state">
+					<strong>The Deal in On</strong>
+					<img alt="The Deal in On" src="/media/images/ico-deal-on.gif" width="38" height="38" />
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{% block extra-content %}
+<div class="box box2">
+	<div class="box-t"></div>
+	<div class="box-c">
+		<div class="content-area">
+			<p>{{ deal.description|safe }}</p>
+			<h2>Reviews</h2>
+			<p>Ex. SomeBlog gives it 4.5 stars, Yelpers give it 3.5, and TripAdvisor gives it four owl eyes for stunning spa services: </p>
+			<ul class="reviews-list">
+				<li>
+					<blockquote cite="#">
+						<div>
+							<q>I originally went there to get my hair done for a wedding, but was so pleased, went back for a massage. Very reasonably priced and the service was just great. Will be going back to check out other things on their menu.</q>
+							<cite> - <a href="#">Linda and Michael</a></cite>
+						</div>
+					</blockquote>
+				</li>
+				<li>
+					<blockquote cite="#">
+						<div>
+							<q>Good feel to the place. Nice staff. Took their time making you feel pampered.</q>
+							<cite> - <a href="#">Sara</a></cite>
+						</div>
+					</blockquote>
+				</li>
+			</ul>
+			<div class="world-street-heading">
+				<h2 class="world-street">The world on the street:</h2>
+				<img class="png" alt="image description" src="/media/images/img2.png" width="58" height="66" />
+				<a class="logo2" href="#">MassiveCoupon.com</a>
+			</div>
+			<div class="world-txt">
+				<div class="holder">
+					<h3>~ Love is in the Spa Air ~</h3>
+					<p>Ziggy really likes this place! </p>
+				</div>
+			</div>
+		</div>
+		<div class="aside2">
+			<h2>The Company</h2>
+			<ul class="company-list">
+				<li>
+					<strong class="title">{{ deal.myadvertiser.name }}</strong>
+					<p><a href="#">{{ deal.advertiser.url }}</a></p>
+					<address>{{ deal.advertiser.address }}<br />{{ deal.advertiser.city }}, {{ deal.advertiser.province }} {{ deal.advertiser.postalcode }}</address>
+					<p><img src="http://maps.google.com/maps/api/staticmap?center={{ deal.latitude }},{{ deal.longitude }}&zoom=14&size=195x400&maptype=roadmap&markers=color:blue%7Clabel:1%7C{{ deal.latitude }},{{ deal.longitude }}&sensor=false"/></p>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="box-b"></div>
+</div>
+{% endblock %}
+						
+{% block sidebar %}
+	{% include 'sidebar/_discuss.html' %}
+	{% include 'sidebar/_share.html' %}
+	{% include 'sidebar/_get_your_business.html' %}
+	{% include 'sidebar/_how_it_works.html' %}
+{% endblock sidebar %}
+				

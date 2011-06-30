@@ -59,9 +59,31 @@
 	</div>
 	
 	<div id="wrapper">
-	{% block content %}{% endblock %}
+	{% block content_wrapper %}
+	<div id="main">
+		<div id="twocolumns">
+			<div class="twocolumns-holder">
+				<div id="content">
+					<div class="box">
+						<div class="box-t"></div>
+						<div class="box-c">{% block content %}{% endblock %}</div>
+						<div class="box-b"></div>
+					</div>
+					{% block extra-content %}{% endblock extra-content %}
+				</div>
+				<div id="sidebar">
+				{% block sidebar %}
+					{% include 'sidebar/_how_it_works.html' %}
+				{% endblock sidebar %}
+				</div>
+			</div>
+		</div>
+		{% include "header.html" %}
+	</div>
+	{% endblock content_wrapper %}
+	
 	{% include "footer.html" %}            
-	</div> <!-- end wrapper -->
+	</div>
 </body>
 </html>
 
