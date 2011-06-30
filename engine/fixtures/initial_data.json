@@ -1,0 +1,107 @@
+[
+    {
+        "pk": 1, 
+        "model": "flatpages.flatpage", 
+        "fields": {
+            "registration_required": false, 
+            "title": "About Mario's Groupon", 
+            "url": "/about-us/", 
+            "template_name": "", 
+            "sites": [
+                1
+            ], 
+            "content": "Mario's Groupon was created in December of 2009 with a goal of shifting the power into the buyer's hands to allow us to experience new and exciting things that our cities have to offer.\r\n<br/><br/>\r\n\r\nThe concept is new to our cities and we think it is a perfect fit for our urban population. It\u201a\u00c4\u00f4s pretty simple; we do our best to give people unbeatable deals everyday so they can comfortably try new and exciting things they may have not had a chance to try otherwise.\r\n<br/><br/>\r\n\r\nWithout our community we're really nothing. We really encourage our users to get involved in our daily discussions, ask questions, share the deals through Twitter, Facebook and Email, and really help spread the word of collective buying!", 
+            "enable_comments": false
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "flatpages.flatpage", 
+        "fields": {
+            "registration_required": false, 
+            "title": "Contact Us", 
+            "url": "/contact-us/", 
+            "template_name": "", 
+            "sites": [
+                1
+            ], 
+            "content": "<h2>Question about today's deal?</h2>\r\n<p style=\"margin-bottom: 25px;\">\r\nWe can try to help, but you should probably try the business first - you can find a link to their website on the main deal page. \r\n</p>\r\n\r\n<h2>Having trouble using Mario's Groupon?</h2>\r\n<!-- FIXME: Create a proper contact form -->\r\n<p style=\"margin-bottom: 25px;\">Email Mario's Groupon at <a href=\"mailto:companyemail@mail.com\">companyemail@mail.com</a>\r\n</p>\r\n\r\n<h2>Feedback, Information, Business Partnerships, Etc.</h2>\r\n<p style=\"margin-bottom: 25px;\">\r\nEmail <a href=\"mailto:info@company.com\">info@company.com</a>\r\n</p>", 
+            "enable_comments": false
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "flatpages.flatpage", 
+        "fields": {
+            "registration_required": false, 
+            "title": "Developers / API", 
+            "url": "/developers/", 
+            "template_name": "", 
+            "sites": [
+                1
+            ], 
+            "content": "Developers and API", 
+            "enable_comments": false
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "flatpages.flatpage", 
+        "fields": {
+            "registration_required": false, 
+            "title": "FAQ", 
+            "url": "/faq/", 
+            "template_name": "", 
+            "sites": [
+                1
+            ], 
+            "content": "<h3>What is {{ COMPANY_NAME }}?</h3>\r\n\r\n<p>\r\nEach day, Massive Coupon features an unbeatable deal on the best stuff to do, see, eat, and buy in your city. By promising businesses a minimum number of customers, we get discounts you won't find anywhere else. We call it \"massive group buying power!\"\r\n</p>\r\n\r\n<h3>Do I have to sign up a group of people I know to get the deal?</h3>\r\n\r\n<p>\r\nNope - our hundreds of thousands of members make up a big enough group. You'll probably want to invite people anyway, though \u201a\u00c4\u00ee Massive Coupons are fun to use with friends, grandparents, and men who wear monocles.\r\n</p>\r\n\r\n<h3>I like today's deal - how do I get it?</h3>\r\n\r\n<p>\r\nJust click \"BUY\" before the offer ends at midnight. If the minimum number of people sign up, we'll charge your card and send you a link to print your Massive Coupon. If not enough people join, no one gets it (and you won't be charged), so invite your friends to make sure you get the deal!\r\n</p>\r\n", 
+            "enable_comments": false
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "flatpages.flatpage", 
+        "fields": {
+            "registration_required": false, 
+            "title": "How It Works", 
+            "url": "/how-coupon-works/", 
+            "template_name": "", 
+            "sites": [
+                1
+            ], 
+            "content": "<h2>  </h2>\r\n<p style=\"margin-bottom: 25px;\">\r\n{{COMPANY_NAME} brings you amazing deals on the coolest events, restaurants, fashion finds, activities and adventures. We can deliver great offers because we the power of the people to do massive group buying power.\r\n<br><br>\r\n<h3>How Does MassiveCoupon Work?</h3>\r\n\r\n<ol>\r\n    <li>We feature an amazing deal in your city available for a limited time</li>\r\n    <li>You can only get the deal if enough people join the group - spread the word!</li>\r\n    <li>If enough people join you get a printable electronic voucher</li>\r\n    <li>Use the voucher to redeem your MassiveCoupon!</li>\r\n</ol>\r\n\r\n<br><br>\r\n\r\nTo join a group, click the \u201a\u00c4\u00faBuy Button\u201a\u00c4\u00f9 and follow the instructions. You will only be charged if the group is big enough. If you want the deal, spread the word far and wide because we can't get it unless we have enough people. You can share it easily using the social media links on each deal page.\r\n<br><br>\r\n\r\nFurther questions? Please see the <a href=\"/faq/\">Frequently Asked Questions</a> for more information.\r\n<br><br>\r\nInterested to know how MassiveCoupon can help your business? Click here to learn more.\r\n\r\n</p>", 
+            "enable_comments": false
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "flatpages.flatpage", 
+        "fields": {
+            "registration_required": false, 
+            "title": "Press", 
+            "url": "/press/", 
+            "template_name": "", 
+            "sites": [
+                1
+            ], 
+            "content": "<h2>Featured Press</h2>\r\n<img src=\"http://groupon.s3.amazonaws.com/press-page/press-logos/washington_times.jpg\"/>\r\n\r\n<h2>Featured Video</h2>\r\n\r\n<h2>What People Are Saying</h2>\r\n..\r\n", 
+            "enable_comments": false
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "flatpages.flatpage", 
+        "fields": {
+            "registration_required": false, 
+            "title": "Terms and Conditions", 
+            "url": "/terms-and-conditions/", 
+            "template_name": "", 
+            "sites": [
+                1
+            ], 
+            "content": "<h3>IMPORTANT: ALL USERS ARE REQUIRED TO READ THIS SECTION</h3>\r\n\r\n<p>\r\nMARIO COUPON PROVIDES THIS WEB SITE (THE \"SITE\") TO YOU SUBJECT TO THESE TERMS AND CONDITIONS OF USE (THE \"TERMS OF USE\"). PLEASE READ THESE TERMS OF USE CAREFULLY BEFORE USING THIS WEB SITE. BY ACCESSING OR USING THIS WEB SITE, YOU EXPLICITLY AGREE TO COMPLY WITH AND BE BOUND BY THESE SITE TERMS AND ALL TERMS, POLICIES AND GUIDELINES INCORPORATED BY REFERENCE HEREIN. IF YOU DO NOT AGREE TO ALL PROVISIONS OF THESE SITE TERMS, DO NOT USE THIS WEB SITE. \r\n</p>\r\n\r\n<p>\r\nThanks for visiting MarioCoupon.com, an online company doing business at http://www.MarioCoupon.com  The Terms of Use which incorporate the Privacy Policy and Frequently Asked Questions (FAQ), set forth the terms and conditions that govern the use of this Site and that must be followed by any person or entity that uses the Site. \r\n</p>\r\n\r\n<h3>1. Acceptance of Terms of Use</h3>\r\n\r\n<p>\r\nBy using this Site (which includes visiting the site whether or not participating in any commerce) you agree to the terms and conditions set forth below and provided by MarioCoupon and to follow all applicable regulations that apply to this Site. If you do not agree to the Terms of Use you must stop using the Site. \r\n</p>\r\n\r\n<h3>2. Conditions</h3>\r\n<p>\r\n...........\r\n</p>", 
+            "enable_comments": false
+        }
+    }
+]
