@@ -303,15 +303,10 @@ def deal_checkout_error(request):
 
 
 def deal_detail(request, slug=None):
-    try:
-        user_msg = request.GET.get('user_msg', None)
-    except:
-        user_msg = None
-    
     if slug == None:
         deal = Deal.objects.all()[0]
     else:
-        deal = Deal.objects.get(slug=slug)
+        deal = get_object_or_404(Deal, slug=slug)
     
     if not deal.is_expired(): 
         countdown_time = deal.date_published.strftime("%Y,%m,%d") #+ ' 11:59 PM'
@@ -319,8 +314,6 @@ def deal_detail(request, slug=None):
         countdown_time = -1
     
     return render_to_response('deal_detail.html', {
-             #   'now' : now,
-                'user_msg' : user_msg,
                 'deal' : deal,
                 'countdown_time' : countdown_time,
               }, context_instance=RequestContext(request))
