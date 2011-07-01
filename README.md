@@ -9,7 +9,7 @@
  
  
 ## Backlog
- * Add user registration
+ * Add user registration: django-registration
  * <strike>Refactor cities variable required by all the templates; create a template tag or use template processor</strike>
  * <strike>Add flatpages for static content</strike>
  * Clean up inline CSS and JS
@@ -21,6 +21,7 @@
  * <strike>Move header.html inclusion from all the templates to base.html</strike>
  * Review usage of  the following apps: countries, debug_toolbar, facebook, socialregistration, photologue, etc; 
 add them to requirements.txt and delete them from repo.
+ * Install django-socialregistration in requirements; clean up url entries
 
  
 ## Original README

@@ -13,3 +13,17 @@ PAYPAL_DEBUG = True
 # Dev settings
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+# Adds debug toolbar
+if DEBUG:
+    import logging
+    try:
+        midleware = list(MIDDLEWARE_CLASSES)
+        midleware.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+        MIDDLEWARE_CLASSES = tuple(midleware)
+        
+        apps = list(INSTALLED_APPS)
+        apps.append('debug_toolbar')
+        INSTALLED_APPS = tuple(apps)
+    except Exception, e:
+        logging.warning("%s" % e)

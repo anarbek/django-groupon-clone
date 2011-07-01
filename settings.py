@@ -4,6 +4,7 @@ import logging
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+INTERNAL_IPS = ('127.0.0.1',)
 DIRNAME = os.path.dirname(__file__) 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
