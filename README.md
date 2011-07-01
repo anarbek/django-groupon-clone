@@ -18,6 +18,9 @@
  * Implement Reviews ?!
  * Localization (views, templates)
  * Add url to Advetiser (maybe)
+ * <strike>Move header.html inclusion from all the templates to base.html</strike>
+ * Review usage of  the following apps: countries, debug_toolbar, facebook, socialregistration, photologue, etc; 
+add them to requirements.txt and delete them from repo.
 
  
 ## Original README
