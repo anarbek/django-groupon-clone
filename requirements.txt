@@ -4,3 +4,4 @@ django-oauth
 django-openid-consumer
 django-form-utils
 django-debug-toolbar
+django-photologue

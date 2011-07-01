@@ -116,7 +116,7 @@ class ProductCategory(models.Model):
     def __unicode__(self):
         return self.name
     
-class Deal(models.Model):
+class Deal(ImageModel):
     """
     Actual services
     """
@@ -145,7 +145,6 @@ class Deal(models.Model):
     company_desc            = models.TextField()
     #  address                 = models.TextField()
     #  url                     = models.URLField()
-    image                   = models.ImageField(upload_to=UPLOAD_TO, max_length=255, blank=True)
     tags                    = TagField(help_text="Tags seperated by commas!!", verbose_name='tags')
     
     latitude                = models.DecimalField("Latitude (decimal)", max_digits=9, decimal_places=6, blank=True, null=True)
