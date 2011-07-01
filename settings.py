@@ -151,7 +151,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.flatpages',
 
-#    'massivecoupon',
     'engine',
     'countries',
     'photologue',
