@@ -5,6 +5,7 @@ Created on Jun 28, 2011
 '''
 
 from django.conf import settings
+from django.contrib.sites.models import Site
 
 def exposed_settings(request):
     return {
@@ -14,5 +15,6 @@ def exposed_settings(request):
         'COMPANY_EMAIL': settings.COMPANY_EMAIL,
         'COMPANY_EMAIL_INFO': settings.COMPANY_EMAIL_INFO,
         'FACEBOOK_API_KEY': settings.FACEBOOK_API_KEY,
+        'CURRENT_SITE': Site.objects.get_current(),
         }
     
