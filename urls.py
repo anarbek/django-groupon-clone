@@ -9,17 +9,16 @@ urlpatterns = patterns('',
     url(r'^$', 'engine.views.index', name='index'),
 
     # Checkout urls
-    url(r'^deals/groupon-clone/(?P<slug>\S+)/checkout/$', 'engine.views.deal_checkout', name='deal-checkout'),
+    url(r'^deals/(?P<slug>\S+)/checkout/$', 'engine.views.deal_checkout', name='deal-checkout'),
     url(r'^deals/(?P<slug>\S+)/(?P<quantity>\d+)/checkout/complete/$', 'engine.views.deal_checkout_complete', name='deal-checkout-complete'),
     url(r'^checkout/error$', 'engine.views.deal_checkout_error', name='deal-checkout-error'),
-    url(r'^deals/groupon-clone/(?P<slug>\S+)/$', 'engine.views.deal_detail', name='deal-detail'),
+    url(r'^deals/(?P<slug>\S+)$', 'engine.views.deal_detail', name='deal-detail'),
     
-    url(r'^(?P<city_slug>\S+)/subscribe$', 'engine.views.city_subscribe', name='city-subscribe'),
-    url(r'^deals/(?P<city_slug>\w+)$', 'engine.views.city_deals', name='city-deals'),
-
-    url(r'^deals/groupon-clone/$', 'engine.views.deal_detail', name='todays-deal'),
+    url(r'^deals$', 'engine.views.deal_detail', name='todays-deal'),
     # FIXME: implement recent deals
-    url(r'^deals/groupon-clone/$', 'engine.views.deal_detail', name='recent-deals'),
+    url(r'^deals$', 'engine.views.deal_detail', name='recent-deals'),
+    url(r'^(?P<city_slug>\S+)/subscribe$', 'engine.views.city_subscribe', name='city-subscribe'),
+    url(r'^(?P<city_slug>\w+)$', 'engine.views.city_deals', name='city-deals'),
     
     url(r'^suggestions$', 'engine.views.suggestions', name='suggestions'),
 
