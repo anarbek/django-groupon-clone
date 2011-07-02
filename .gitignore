@@ -5,3 +5,4 @@ groupon.db
 .settings/
 local_settings.py
 media/
+src/
