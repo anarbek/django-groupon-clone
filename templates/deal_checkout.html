@@ -75,7 +75,6 @@
 	<h1>Payment <img style="margin-top: 10px;" src="/media/images/lock-icon.png"></h1>
 	<p>Your credit card will be charged and your massive coupon will be ready within 24hrs</p>
 	<a href="#main-nav" class="accessibility">skip to main navigation</a>
-	<div>
 	{% if must_login_error %}
 	<div class="error-box">
           	<div class="title">An account already exists for {{ must_login_email }}. Please sign in first.</div>
@@ -96,22 +95,21 @@
 			<div class="field"><label>Email:</label>{{ form.email }}<div class="error-msg">{% if form.errors.email %}Please enter your email{% endif %}</div></div>
 			<div style="float: left; margin-top: 4px;"><input type="image" src="/media/images/btn_xpressCheckout.gif" value="Complete My Order" alt="Complete My Order" id="buy" onClick="submitForm(this.form);"/></div>
     	</div>
-
-	    <div class="right" style="text-align: center; padding-left: 10px; padding-right: 10px; width: 330px; float: left; background: #DDEDCC">
-	      <div style="height: 200px;">
-	      	{% if request.user.is_authenticated %}
-	        <h2>Already have an Account?</h3>
-	        <p style="line-height: 1.4;">If you have purchased a {{ COMPANY_NAME }} before, you can sign in using your email address.</p>
-	        <a href="{% url user-login %}"><img src="/media/images/signin-button.gif"></a>
-	        {% else %}
-	        	<h2>Hmm... you're not authenticated.</h2>
-	        {% endif %}
-	      </div>
-	    </div>
-	</div>
-    
-  </div>
+    </div>
 </form>
+
+<div class="right" style="text-align: center; padding-left: 10px; padding-right: 10px; width: 330px; float: left; background: #DDEDCC">
+    <div style="height: 200px;">
+  	{% if not request.user.is_authenticated %}
+        <h2>Already have an Account?</h3>
+        <p style="line-height: 1.4;">You can sign in your your Facebook account</p>
+        {% load facebook_tags %}
+        {% facebook_button %}
+    {% else %}
+    	<h2>Hmm... you ARE already authenticated.</h2>
+    {% endif %}
+    </div>
+</div>
 {% endblock content %}
 
 {% block sidebar %}
