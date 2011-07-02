@@ -103,5 +103,21 @@
             "content": "<h3>IMPORTANT: ALL USERS ARE REQUIRED TO READ THIS SECTION</h3>\r\n\r\n<p>\r\nMARIO COUPON PROVIDES THIS WEB SITE (THE \"SITE\") TO YOU SUBJECT TO THESE TERMS AND CONDITIONS OF USE (THE \"TERMS OF USE\"). PLEASE READ THESE TERMS OF USE CAREFULLY BEFORE USING THIS WEB SITE. BY ACCESSING OR USING THIS WEB SITE, YOU EXPLICITLY AGREE TO COMPLY WITH AND BE BOUND BY THESE SITE TERMS AND ALL TERMS, POLICIES AND GUIDELINES INCORPORATED BY REFERENCE HEREIN. IF YOU DO NOT AGREE TO ALL PROVISIONS OF THESE SITE TERMS, DO NOT USE THIS WEB SITE. \r\n</p>\r\n\r\n<p>\r\nThanks for visiting MarioCoupon.com, an online company doing business at http://www.MarioCoupon.com  The Terms of Use which incorporate the Privacy Policy and Frequently Asked Questions (FAQ), set forth the terms and conditions that govern the use of this Site and that must be followed by any person or entity that uses the Site. \r\n</p>\r\n\r\n<h3>1. Acceptance of Terms of Use</h3>\r\n\r\n<p>\r\nBy using this Site (which includes visiting the site whether or not participating in any commerce) you agree to the terms and conditions set forth below and provided by MarioCoupon and to follow all applicable regulations that apply to this Site. If you do not agree to the Terms of Use you must stop using the Site. \r\n</p>\r\n\r\n<h3>2. Conditions</h3>\r\n<p>\r\n...........\r\n</p>", 
             "enable_comments": false
         }
+    }, 
+    {
+        "pk": 1, 
+        "model": "photologue.photosize", 
+        "fields": {
+            "name": "small", 
+            "watermark": null, 
+            "increment_count": false, 
+            "effect": null, 
+            "crop": true, 
+            "height": 94, 
+            "width": 141, 
+            "upscale": false, 
+            "pre_cache": true, 
+            "quality": 70
+        }
     }
 ]
