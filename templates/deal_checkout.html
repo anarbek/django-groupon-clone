@@ -45,159 +45,76 @@
       });
 
       update_estimated_quote();
-
-      // Setup hint tooltips and error messages
-      {% for f in form %}
-      {% if f.help_text %}showHint('#{{ f.auto_id }}', '{{ f.help_text }}');{% endif %}
-      {% endfor %}
-
-
   });
 
 {% endblock extrajs %}
 
 {% block content %}
-   <div id="main">
-			<div id="twocolumns">
-				<div class="twocolumns-holder">
-					<div id="content">
+<form  class="dealcheckoutform" id="id_dealcheckoutform" method="POST" >{% csrf_token %}
+	<h2 style="margin-top: 0px;">Your Purchase</h2>
+	<div>
+		<table>
+			<tr style="font-size: 110%; font-weight: bold; color: #555;">
+				<td style="height: 25px; width: 300px;">Description</td>
+				<td style="width: 100px; text-align: center;">Quantity</td>
+				<td style="width: 150px; text-align: center;">Price</td>
+				<td style="width: 150px; text-align: center;">Total</td>
+			</tr>
+			<tr height="1" width="100%" background="/media/images/blue-pixel.png"><td colspan="4" height="1"></td></tr>
+			<tr style="font-size: 130%; font-weight: bold; ">
+				<td style="height: 50px;">{{ deal.advertiser }}</td>
+				<td style="text-align: center;"><input style="font-size: 110%; text-align: center;" type="text" size="2" value="1" name="quantity" id="id_quantity"></td>
+				<td style="text-align: center;"> x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ deal.deal_price }} (CAN)</td>
+				<td style="text-align: center;">=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="id_estimate" style="color: #000; font-size: 170%;">$0.00</span></td>
+			</tr>
+			<tr height="1" width="100%" background="/media/images/blue-pixel.png"><td colspan="4" height="1"></td></tr>
+		</table>
+	</div>
+	<img style="margin-top: 10px; width: 160px; float: right;" src="/media/images/securepaypal.jpg">
 
-            <div class="box">
-              <div class="box-t"></div>
-              <div class="box-c" style="height: 118px; padding-top: 0px;">
+	<h1>Payment <img style="margin-top: 10px;" src="/media/images/lock-icon.png"></h1>
+	<p>Your credit card will be charged and your massive coupon will be ready within 24hrs</p>
+	<a href="#main-nav" class="accessibility">skip to main navigation</a>
+	<div>
+	{% if must_login_error %}
+	<div class="error-box">
+          	<div class="title">An account already exists for {{ must_login_email }}. Please sign in first.</div>
+   	</div>
+     {% endif %}
+     {% if form.errors %}
+     <div class="error-box">
+     	<div class="title">There was a problem, please see the error messages below.</div>
+     	<div>Please correct fields marked with a red box.</div>
+ 	</div>
+ 	{% endif %}
+        	
+	<div class="clearfix">
+		<div style="font-weight: bold; font-size: 120%; margin-bottom: 10px;">Personal Information</div>
+		<div class="user_left" style="width: 300px; float: left;">
+			<div class="field"><label>Full Name:</label>{{ form.full_name }}<div class="error-msg">{% if form.errors.full_name %}Please enter your full name{% endif %}</div></div>
+			<div class="passwd_field"><span style="float:left; width: 140px;"><label style="display: block;">Password:</label>{{ form.password }}</span><span style="float:left;"><label style="display: block;">Password (confirm):</label>{{ form.password_verify }}</span><div class="error-msg">{% if form.errors.password %}{{ form.errors.password }}{% endif %}</div></div>
+			<div class="field"><label>Email:</label>{{ form.email }}<div class="error-msg">{% if form.errors.email %}Please enter your email{% endif %}</div></div>
+			<div style="float: left; margin-top: 4px;"><input type="image" src="/media/images/btn_xpressCheckout.gif" value="Complete My Order" alt="Complete My Order" id="buy" onClick="submitForm(this.form);"/></div>
+    	</div>
 
-                <form  class="dealcheckoutform" id="id_dealcheckoutform" method="POST" >{% csrf_token %}
-
-                <h2 style="margin-top: 0px;">Your Purchase</h2>
-                <a href="#main-nav" class="accessibility">skip to main navigation</a>
-
-                <div>
-                  <table>
-                   <tr style="font-size: 110%; font-weight: bold; color: #555;">
-                      <td style="height: 25px; width: 300px;">Description</td>
-                      <td style="width: 100px; text-align: center;">Quantity</td>
-                      <td style="width: 150px; text-align: center;">Price</td>
-                      <td style="width: 150px; text-align: center;">Total</td>
-                   </tr>
-                   <tr height="1" width="100%" background="/media/images/blue-pixel.png"><td colspan="4" height="1"></td></tr>
-                   <tr style="font-size: 130%; font-weight: bold; ">
-                      <td style="height: 50px;">{{ deal.advertiser }}</td>
-                      <td style="text-align: center;"><input style="font-size: 110%; text-align: center;" type="text" size="2" value="1" name="quantity" id="id_quantity"></td>
-                      <td style="text-align: center;"> x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ deal.deal_price }} (CAN)</td>
-                      <td style="text-align: center;">=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="id_estimate" style="color: #000; font-size: 170%;">$0.00</span></td>
-                   </tr>
-                   <tr height="1" width="100%" background="/media/images/blue-pixel.png"><td colspan="4" height="1"></td></tr>
-                  </table>
-                </div>
-
-                <img style="margin-top: 10px; width: 160px; float: right;" src="/media/images/securepaypal.jpg">
-              </div>
-              <div class="box-b"></div>
-            </div>
-
-
-						<div class="box">
-							<div class="box-t"></div>
-							<div class="box-c" style="padding-top: 0px;">
-								<h1>Payment <img style="margin-top: 10px;" src="/media/images/lock-icon.png"></h1>
-                <p>Your credit card will be charged and your massive coupon will be ready within 24hrs</p>
-								<a href="#main-nav" class="accessibility">skip to main navigation</a>
-
-<div>
-
-    {% if must_login_error %}
-        <div class="error-box">
-            <div class="title">An account already exists for {{ must_login_email }}. Please sign in first.</div>
-        </div>
-    {% endif %}
-
-    {% if form.errors %}
-        <div class="error-box">
-            <div class="title">There was a problem, please see the error messages below.</div>
-            <div>Please correct fields marked with a red box.</div>
-        </div>
-    {% endif %}
-
-
-  <div class="clearfix">
-    <div style="font-weight: bold; font-size: 120%; margin-bottom: 10px;">Personal Information</div>
-    <div class="user_left" style="width: 300px; float: left;">
-      <div class="field"><label>Full Name:</label>{{ form.full_name }}<div class="error-msg">{% if form.errors.full_name %}Please enter your full name{% endif %}</div></div>
-
-      <div class="passwd_field"><span style="float:left; width: 140px;"><label style="display: block;">Password:</label>{{ form.password }}</span><span style="float:left;"><label style="display: block;">Password (confirm):</label>{{ form.password_verify }}</span><div class="error-msg">{% if form.errors.password %}{{ form.errors.password }}{% endif %}</div></div>
-
-{% comment %}
-      <div class="passwd_field"><label style="width: 100%; display:block;">Password:</label>{{ form.password }} Password (confirm):{{ form.password_verify }}</div>
-{% endcomment %}
-
-      <div class="field"><label>Email:</label>{{ form.email }}<div class="error-msg">{% if form.errors.email %}Please enter your email{% endif %}</div></div>
-
-      <div style="float: left; margin-top: 4px;"><input type="image" src="/media/images/btn_xpressCheckout.gif" value="Complete My Order" alt="Complete My Order" id="buy" onClick="submitForm(this.form);"/></div>
-
-
-    </div>
-
-    <div class="right" style="text-align: center; padding-left: 10px; padding-right: 10px; width: 330px; float: left; background: #DDEDCC">
-      <div style="height: 200px;">
-      	{% if request.user.is_authenticated %}
-        <h2>Already have an Account?</h3>
-        <p style="line-height: 1.4;">If you have purchased a {{ COMPANY_NAME }} before, you can sign in using your email address.</p>
-        <a href="{% url user-login %}"><img src="/media/images/signin-button.gif"></a>
-        {% else %}
-        <h2>Hmm... you already have an account...</h2>
-        {% endif %}
-      </div>
-    </div>
-
+	    <div class="right" style="text-align: center; padding-left: 10px; padding-right: 10px; width: 330px; float: left; background: #DDEDCC">
+	      <div style="height: 200px;">
+	      	{% if request.user.is_authenticated %}
+	        <h2>Already have an Account?</h3>
+	        <p style="line-height: 1.4;">If you have purchased a {{ COMPANY_NAME }} before, you can sign in using your email address.</p>
+	        <a href="{% url user-login %}"><img src="/media/images/signin-button.gif"></a>
+	        {% else %}
+	        	<h2>Hmm... you're not authenticated.</h2>
+	        {% endif %}
+	      </div>
+	    </div>
+	</div>
+    
   </div>
-
-
-{% comment %}
-<div class="clearfix" style="margin-top: 20px;">
-
-  <div style="font-weight: bold; font-size: 120%; margin-bottom: 10px;">Billing Information</div>
-
-  <div id="leftbox" style="float: left; width: 300px;">
-    <div class="field"><label>Cardholder Name:</label>{{ form.cardholder_name }}<div class="error-msg">{% if form.errors.cardholder_name %}Please enter the name on your credit card{% endif %}</div></div>
-    <div class="field"><label>Card Type:</label>{{ form.type }}</div>
-    <div class="field"><label>Number:</label>{{ form.number }}<div class="error-msg">{% if form.errors.number %}Please enter your credit card number{% endif %}</div></div>
-    <div class="double_field"><label style="width: 100%; display:block;">Expiration Date:</label>{{ form.expiry_month }} {{ form.expiry_year }}</div>
-    <div class="field"><label>Security Code:</label>{{ form.security }}<div class="error-msg">{% if form.errors.security %}Please enter the CVV on the back of your credit card{% endif %}</div></div>
-  </div>
-  <div id="rightbox" style="float: left;">
-    <div class="field"><label>Billing Address:</label>{{ form.billing_address }}<div class="error-msg">{% if form.errors.billing_address %}Please enter your billing address{% endif %}</div></div>
-    <div class="field"><label>City:</label>{{ form.city }}<div class="error-msg">{% if form.errors.city %}Please enter your billing city{% endif %}</div></div>
-    <div class="field"><label>Postal Code:</label>{{ form.postalcode }}<div class="error-msg">{% if form.errors.postalcode %}Please enter your postal code{% endif %}</div></div>
-    <div class="field"><label>Province:</label>{{ form.province }}</div>
-    <div class="field"><label>Country:</label>{{ form.country }}</div>
-  </div>
-
-</div>
-{% endcomment %}
-
-{% comment %}<input type="submit"  value="Complete My Order" alt="Complete My Order" id="buy" onClick="submitForm(this.form);"/>
-  <a style="margin-left: 80px;" href="{{ url index }}">No Thanks.</a>
-{% endcomment %}
-
 </form>
+{% endblock content %}
 
-
-</div>
-
-							</div>
-							<div class="box-b"></div>
-						</div>
-
-					</div>
-					<div id="sidebar">
-						{% include "sidebar/_got_a_gift_card.html" %}
-						{% include "sidebar/_payment_questions.html" %}
-					</div>
-				</div>
-			</div> 
-			
-         {% include "header.html" %}
-			
-		</div> <!-- end main -->
-	
-{% endblock content %}	
+{% block sidebar %}
+	{% include "sidebar/_got_a_gift_card.html" %}
+	{% include "sidebar/_payment_questions.html" %}
+{% endblock sidebar %}
