@@ -157,6 +157,10 @@ class Deal(ImageModel):
     def __unicode__(self):
         return self.title
     
+    @models.permalink
+    def get_absolute_url(self):
+        return ('deal-detail', [self.slug])
+    
     def num_available(self):
         return self.max_available - self.num_sold()
     
