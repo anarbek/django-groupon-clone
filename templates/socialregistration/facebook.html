@@ -1,0 +1,12 @@
+{% extends "base.html" %} 
+{% block sub-title %}Facebook Authentication Problem{% endblock %} 
+{% block content %}
+<h1><span class="mark" style="color: #000;">Ooopps!</span></h1>
+<div>
+    <h2>
+        Something went wrong when you've tried to authenticate! 
+        Go to homepage to check <a href="{% url index %}">today's deal</a>.
+    </h2>
+</div>
+
+{% endblock content %}

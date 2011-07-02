@@ -99,11 +99,12 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
+#    "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.request",
     
     # My custom processor to expose settings (company name, etc) to templates
     "context_processors.exposed_settings",
@@ -117,18 +118,20 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 
-    'facebook.djangofb.FacebookMiddleware',
+    # 3rd party middlewares
     'socialregistration.middleware.FacebookMiddleware',
+    
+    # our own middlewares
+    'engine.middleware.ProfileMiddleware', # needs to be set after FacebooMiddleware 
 )
 
 AUTHENTICATION_BACKENDS = (
     # this is the default backend, don't forget to include it!
     'backends.EmailOrUsernameModelBackend',
     'django.contrib.auth.backends.ModelBackend',
-    # this is what you're adding for using Twitter
-#    'socialregistration.auth.TwitterAuth',
-    'socialregistration.auth.FacebookAuth', # Facebook
-#    'socialregistration.auth.OpenIDAuth', # OpenID
+    
+    'socialregistration.auth.FacebookAuth',
+    'socialregistration.auth.TwitterAuth',
 )
 
 ROOT_URLCONF = 'urls'
@@ -150,17 +153,18 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.flatpages',
-
+    
     'engine',
     'countries',
     'photologue',
     'tagging',
-    'socialregistration', 
     'paypalxpress',
+    'socialregistration',
 )
 
 LOGIN_URL = "/user/login/"
 LOGIN_REDIRECT_URL = "/"
+AUTH_PROFILE_MODULE = 'engine.Profile'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -184,6 +188,8 @@ LOGGING = {
         },
     }
 }
+
+
 
 # Site settings
 COMPANY_NAME = "Mario's Groupon"

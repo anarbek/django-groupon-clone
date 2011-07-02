@@ -1,9 +1,19 @@
 # My custom settings
-GOOGLE_MAPS_API_KEY = ''
+GOOGLE_MAPS_API_KEY = 'XXX'
 
-FACEBOOK_API_KEY = ''
-FACEBOOK_SECRET_KEY = ''
-SOCIAL_GENERATE_USERNAME = True
+# Facebook settings req. by socialregistration
+FACEBOOK_API_KEY = 'XXX'
+FACEBOOK_APP_ID = 'XXX'
+FACEBOOK_SECRET_KEY = 'XXX'
+
+SOCIALREGISTRATION_GENERATE_USERNAME = True
+
+# Twitter settings req. by socialregistration
+TWITTER_CONSUMER_KEY = 'XXX'
+TWITTER_CONSUMER_SECRET_KEY = 'XXX'
+TWITTER_REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token'
+TWITTER_ACCESS_TOKEN_URL = 'https://api.twitter.com/oauth/access_token'
+TWITTER_AUTHORIZATION_URL = 'https://api.twitter.com/oauth/authorize'
 
 PAYPAL_USER  = ""
 PAYPAL_PASSWORD = ""
@@ -13,6 +23,7 @@ PAYPAL_DEBUG = True
 # Dev settings
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+from settings import MIDDLEWARE_CLASSES, INSTALLED_APPS
 
 # Adds debug toolbar
 if DEBUG:
@@ -27,3 +38,5 @@ if DEBUG:
         INSTALLED_APPS = tuple(apps)
     except Exception, e:
         logging.warning("%s" % e)
+    
+    DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}

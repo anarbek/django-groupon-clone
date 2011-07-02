@@ -43,25 +43,24 @@
 			<div class="l"></div>
 			<div class="c">
 				<ul id="main-nav">
-					<li><a href="{% url todays-deal %}">Today's Deal</a></li> {% comment %}
-					<li><a href="{% url recent-deals %}">Recent Deals</a></li> {% endcomment %}
+					<li><a href="{% url todays-deal %}">Today's Deal</a></li>
+					<li><a href="{% url recent-deals %}">Recent Deals</a></li>
 					<li><a href="{% url howitworks %}">How it works</a></li>
 					<li><a href="#" target="_blank">Discussion</a></li>
 				</ul>
 				<a href="#wrapper" class="accessibility">back on top</a>
 				<div class="links">
-
-					{% comment %}
-					<form class="connect-button" name="login" method="post"
-						action="{% if logged_in %}{% url facebook_connect %}{% else %}{% url facebook_login %}{% endif %}">
-						{% if next %} <input type="hidden" name="next" value="{{ next }}" /> {% endif %} <a class="connect-facebook" href=""
-							onclick="facebookConnect(this.form);return false;">Connect with Facebook</a>
-
-					</form>
-					{% endcomment %} {% if user.is_authenticated %} <span style="float: left; margin: 9px 0 0 36px; color: white;"><label
-						style="font-size: 80%; color: #eee;">Hello</label> <a href="/users/{{ request.user.id }}/{{ request.user }}/"></a><a href=""
-						style="color: #fff;">{{ request.user.first_name }}</a>!</span> <a class="sign-out" href="/user/logout/">Logout</a> {% else %} <a
-						class="sign-in" href="/user/login/">Sign In</a> {% endif %}
+                    {% if user.is_authenticated %}
+                        <span style="float: left; margin: 9px 0 0 36px; color: white;">
+                            <label style="font-size: 80%; color: #eee;">Hello, </label><a href="{% url my-account %}">{{ user.first_name }}</a>!
+                        </span>
+                        <a class="sign-out" href="{% url django.contrib.auth.views.logout %}">Logout</a> 
+                    {% else %}
+                        {% load facebook_tags %}
+                        {% facebook_button %}
+                        {% facebook_js %} 
+                        {% comment %}Twitter is not yet tested{% load twitter_tags %}{% twitter_button %}{% endcomment %}
+                    {% endif %}
 				</div>
 			</div>
 			<div class="r"></div>

@@ -16,10 +16,16 @@ import datetime
 import logging
 from urllib import quote
 
+from mario.utils import render_to
+
 from engine.models import City, EmailSubscribe, Coupon, STATUS_ACTIVE, Deal,\
     STATUS_ONHOLD
 from engine.forms import SignupForm, LoginForm, EmailSubForm, DealCheckoutForm
 
+@login_required
+def myaccount(request):
+    coupons = Coupon.objects.filter(user=request.user, status=STATUS_ACTIVE)
+    return HttpResponse('My Account')
 
 def user_signup(request):
     if request.method == 'POST': # If the form has been submitted...
@@ -56,12 +62,6 @@ def user_signup(request):
                                'form' : form,
                                }, 
                               context_instance=RequestContext(request))
-
-
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect('/')
-
 
 def user_login(request):
     if request.method == 'POST': # If the form has been submitted...
@@ -288,6 +288,7 @@ def deal_checkout_error(request):
     return HttpResponse("Deal Checkout Error")
 
 
+@render_to('deal_detail.html')
 def deal_detail(request, slug=None):
     if slug == None:
         deal = Deal.objects.all()[0]
@@ -299,10 +300,7 @@ def deal_detail(request, slug=None):
     else:
         countdown_time = -1
     
-    return render_to_response('deal_detail.html', {
-                'deal' : deal,
-                'countdown_time' : countdown_time,
-              }, context_instance=RequestContext(request))
+    return {'deal' : deal, 'countdown_time' : countdown_time}
 
    
 def city_deals(request, city_slug):
@@ -316,7 +314,7 @@ def city_deals(request, city_slug):
         if not deal.is_expired(): 
             countdown_time = deal.date_published.strftime("%Y,%m,%d") #+ ' 11:59 PM'
     else:
-        messages.error(request, "There are no deals opened for this city.")
+        messages.error(request, "There are no deals opened for city.")
     
     return render_to_response('deal_detail.html', {
              #   'now' : now,

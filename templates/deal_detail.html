@@ -101,9 +101,6 @@ function liftOff() {
 			<p>{{ deal.description|safe }}</p>
 			<h2>Reviews</h2>
 			<p>Ex. SomeBlog gives it 4.5 stars, Yelpers give it 3.5, and TripAdvisor gives it four owl eyes for stunning spa services: </p>
-			<div id="fb-root"></div>
-			<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-			<fb:comments href="{{ CURRENT_SITE.domain }}{% url deal-detail deal.slug %}" num_posts="2" width="500"></fb:comments>
 			<ul class="reviews-list">
 				<li>
 					<blockquote cite="#">

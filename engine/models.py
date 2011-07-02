@@ -1,9 +1,5 @@
-"""
-MASSIVEcoupon.com
-
-"""
-
-from django.db import models  # Replaced by models in gis package
+from django.db import models
+from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
@@ -162,13 +158,10 @@ class Deal(ImageModel):
         return self.title
     
     def num_available(self):
-        num_sold = Coupon.objects.filter(deal=self.id).count()
-        num_available = self.max_available - num_sold
-        return num_available
+        return self.max_available - self.num_sold()
     
     def num_sold(self):
-        num_sold = Coupon.objects.filter(deal=self.id).count()
-        return num_sold
+        return self.coupon_set.count()
 
     def percentage_sold(self):
         num_sold = self.num_sold()
@@ -216,11 +209,7 @@ class Deal(ImageModel):
         now = datetime.datetime.now()
         expired_at = self.date_published + datetime.timedelta(hours=self.auction_duration)
         
-        # FIXME simplify this
-        if expired_at < now :
-            return True
-        else:
-            return False
+        return expired_at < now
 
  
 class EmailSubscribe(models.Model):
@@ -240,14 +229,15 @@ class Profile(models.Model):
     """
     User profile 
     """
+    user            = models.OneToOneField(User)
     is_email_sub    = models.BooleanField(default=False)
-    streetnumber    = models.CharField("Street Number", max_length=10)
-    street          = models.CharField("Street Name", max_length=40)
-    apt             = models.CharField("Apartment #", max_length=20)
-    city            = models.ForeignKey(City)
-    postalcode      = models.CharField("Postal Code", max_length=7)
-    province        = models.CharField(max_length=25, choices=PROVINCES)
-    country         = models.ForeignKey(Country)
+    streetnumber    = models.CharField("Street Number", max_length=10, blank=True, null=True)
+    street          = models.CharField("Street Name", max_length=40, blank=True, null=True)
+    apt             = models.CharField("Apartment #", max_length=20, blank=True, null=True)
+    city            = models.ForeignKey(City, blank=True, null=True)
+    postalcode      = models.CharField("Postal Code", max_length=7, blank=True, null=True)
+    province        = models.CharField(max_length=25, choices=PROVINCES, blank=True, null=True)
+    country         = models.ForeignKey(Country, blank=True, null=True)
     
     phone           = models.CharField(blank=True, max_length=16)
     phoneext        = models.CharField("Phone Ext", max_length=6, blank=True)
@@ -260,6 +250,23 @@ class Profile(models.Model):
         
     def __unicode__(self):
         return self.phone
+    
+    def is_filled(self):
+        return self.user.email and self.user.first_name and self.user.last_name
+    
+    def fill_from_facebook(self, info):
+        # TODO: Check if email is unique (we might end up with same user from facebook and twitter)
+        self.user.email = info.get('email', '')
+        self.user.first_name = info.get('first_name', '')
+        self.user.last_name = info.get('last_name', '')
+        self.user.save()
+
+# Automatically create user profiles when a user is created
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)
 
 
 class Coupon(models.Model):
