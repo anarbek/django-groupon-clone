@@ -1,0 +1,23 @@
+{% extends "base.html" %} 
+{% block sub-title %}My Account{% endblock %}
+{% block content %}
+
+{% for coupon in coupons %}
+    <div><img src="{{ coupon.deal.image.url }}" title="{{ coupon.deal.title }}" width="141" height="94" /></div>
+    <div>
+            Bought on: {{ coupon.entry_date}}
+            <a href="{{ coupon.deal.get_absolute_url }}" title="{{ coupon.deal.title }}">{{ coupon.deal.title }}</a>
+    </div>
+    <div>
+        <table>
+            <tr><td>Unit value:</td><td>{{ coupon.deal.deal_price }}</td></tr>
+            <tr><td>Quantities:</td><td>1x</td></tr>
+            <tr><td>Total:</td><td>{{ coupon.total }}</td></tr>
+            <tr><td>Status:</td><td>{{ coupon.status }}</td></tr>
+            <tr><td>Date:</td><td>{{ coupon.entry_date }}</td></tr>
+        </table>
+    </div>
+{% empty %}
+    You don't bought any coupons.
+{% endfor %}
+{% endblock content %}

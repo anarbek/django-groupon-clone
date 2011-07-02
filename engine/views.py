@@ -23,9 +23,9 @@ from engine.models import City, EmailSubscribe, Coupon, STATUS_ACTIVE, Deal,\
 from engine.forms import SignupForm, LoginForm, EmailSubForm, DealCheckoutForm
 
 @login_required
+@render_to('myaccount.html')
 def myaccount(request):
-    coupons = Coupon.objects.filter(user=request.user, status=STATUS_ACTIVE)
-    return HttpResponse('My Account')
+    return {'coupons': request.user.coupon_set.all()}
 
 def user_signup(request):
     if request.method == 'POST': # If the form has been submitted...
@@ -171,16 +171,24 @@ def _checkout(deal, quantity):
     else:
         return {'error': True, 'redirect_url': reverse('deal-checkout-error')}
 
-
+@render_to('deal_checkout.html')
 def deal_checkout(request, slug):
-    user_msg = ""
+    '''
+    FIXME: Clean this mess
+    
+    @param request:
+    @param slug: deal slug
+    '''
     try:
         deal = Deal.objects.get(slug=slug)
     except:
+        messages.error(request, _('Cannot load requested deal.'))
         return HttpResponseRedirect('/')
+    
     must_login_error = False
     must_login_email = None
     user = None
+    form = None
 
     if request.method == 'POST': # If the form has been submitted...
         # try create user
@@ -226,7 +234,10 @@ def deal_checkout(request, slug):
         # If we have a current user now (already authenticated)
         if user:
             # TODO: check if requested quantity can be purchased
-            quantity = request.POST.get('quantity', 0)
+            try:
+                quantity = int(request.POST.get('quantity', 0))
+            except Exception:
+                quantity = 0
             if quantity:
                 # Perform checkout  
                 result = _checkout(deal, quantity)
@@ -238,24 +249,19 @@ def deal_checkout(request, slug):
                     return HttpResponseRedirect(result['redirect_url'])
                 else:
                     # This should never happen
-                    messages.add_message(request, messages.ERROR, "Unable to perform checkout. Please consult our support team.")
+                    messages.error(request, _('Unable to perform checkout. Please consult our support team.'))
                     return HttpResponseRedirect(reverse('index'))
             else:
                 #unable to checkout selected quantity
-                messages.add_message(request, messages.ERROR, "Unable to checkout specified quantity.")
+                messages.error(request, _('Selected quantity is not valid. Please correct quantity.'))
     else:
-        logging.warning('Create form')
-        initial_data = {}
-        form = DealCheckoutForm(initial=initial_data)
+        form = DealCheckoutForm(initial={})
         
-    return render_to_response('deal_checkout.html', {
-                'form' : form,
-                'deal' : deal,
-                'user_msg' : user_msg,
-                'must_login_error' : must_login_error,
-                'must_login_email' : must_login_email,
-              }, context_instance=RequestContext(request))
-
+    return {'form' : form,
+            'deal' : deal,
+            'must_login_error' : must_login_error,
+            'must_login_email' : must_login_email
+            }
 
 def deal_checkout_error(request):
     # TODO: Implement checkout error
