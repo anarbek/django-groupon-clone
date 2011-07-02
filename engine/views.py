@@ -52,7 +52,7 @@ def user_signup(request):
             else:
                 messages.add_message(request, messages.ERROR, "Unable to authenticate.")
             
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(reverse('index'))
     else:
         initial_data = {}
         form = SignupForm(initial=initial_data)
@@ -63,27 +63,12 @@ def user_signup(request):
                                }, 
                               context_instance=RequestContext(request))
 
-def user_login(request):
-    if request.method == 'POST': # If the form has been submitted...
-        form = LoginForm(request.POST)
-        
-        if form.is_valid():
-            login(request, form.cleaned_data['user'])
-            return HttpResponseRedirect('/')
-    else:
-        initial_data = {}
-        form = LoginForm(initial=initial_data)
-            
-    return render_to_response('user_login.html', {
-                'form' : form,
-              }, context_instance=RequestContext(request))
 
-    
 def city_subscribe(request, city_slug):
     try:
         city = City.objects.get(slug=city_slug)
     except:
-        messages.error(request, _('Cannot request subscription for non existent city.'))
+        messages.error(request, _('Cannot request subscription for a non existent city.'))
         return HttpResponseRedirect(reverse('index'))
     
     if request.method == 'POST': # If the form has been submitted...
@@ -102,19 +87,8 @@ def city_subscribe(request, city_slug):
               }, context_instance=RequestContext(request))
 
 
-@login_required
-def profile(request):
-    coupons = Coupon.objects.filter(user=request.user, status=STATUS_ACTIVE)
-
-#@login_required  # unlock to make fb work!!
 def index(request):
     return HttpResponseRedirect(reverse('todays-deal'))
-
-
-#  return render_to_response('index.html', {
-#             #   'now' : now,
-#              }, context_instance=RequestContext( request ) )
-
 
 def _debug_checkout_complete(request, deal, quantity):
     return {'error': False}
@@ -302,27 +276,22 @@ def deal_detail(request, slug=None):
     
     return {'deal' : deal, 'countdown_time' : countdown_time}
 
-   
+
+@render_to('deal_detail.html')
 def city_deals(request, city_slug):
     city = get_object_or_404(City, slug=city_slug)
-    # TODO: filter only deals that didn't expired
-    city_deal = Deal.objects.all().filter(city=city)
+    deals = city.deal_set.all()
     countdown_time = -1
     deal = None
-    if len(city_deal):
-        deal = city_deal[0]
+    if len(deals):
+        deal = deals[0]
         if not deal.is_expired(): 
             countdown_time = deal.date_published.strftime("%Y,%m,%d") #+ ' 11:59 PM'
     else:
-        messages.error(request, "There are no deals opened for city.")
+        messages.error(request, _('There are no open deals opened for city %(city)s.') % {'city': city.name})
+        return HttpResponseRedirect(reverse('index'))
     
-    return render_to_response('deal_detail.html', {
-             #   'now' : now,
-                'deal' : deal,
-                'countdown_time' : countdown_time,
-              }, context_instance=RequestContext(request))
-        
-    return HttpResponse("City %s" % city_slug)
+    return {'deal' : deal, 'countdown_time' : countdown_time}
 
 
 #TODO: Implement suggestions / suggest a business
