@@ -1,9 +1,9 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 admin.autodiscover()
-
 urlpatterns = patterns('',
     # Index page
     url(r'^$', 'engine.views.index', name='index'),
@@ -23,23 +23,18 @@ urlpatterns = patterns('',
     
     url(r'^suggestions$', 'engine.views.suggestions', name='suggestions'),
 
-    # Login/logout
-    url(r'^user/signup/$', 'engine.views.user_signup', name='user-signup'),
-    url(r'^user/login/$', 'engine.views.user_login', name='user-login'),
-    url(r'^user/logout/$', 'engine.views.user_logout', name='user_logout'),
+    # User pages
+    url(r'^user/myaccount$', 'engine.views.myaccount', name='my-account'),
+    url(r'^users/new', 'engine.views.user_signup', name='user-signup'),
+#    url(r'users/(?P<username>/w+)/pages..')
+#    url(r'^login$', 'engine.views.user_login', name='user-login'),
+    url(r'^user/logout$', 'django.contrib.auth.views.logout', name='user-logout'),
 
     # Admin
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    #url(r'^adminmedia/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.PATH_ADMINMEDIA}),
-
-    url('^setup/$', 'socialregistration.views.setup', name='socialregistration_setup'),
-
-    url('^logout/$', 'socialregistration.views.logout', name='social_logout'),
-
-    # Static stuff (apache should serve this in production)
-    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    url(r'^social/', include('socialregistration.urls')),
     
     #FIXME: robots.txt wil not work like this
     (r'^(robots.txt)$', 'django.views.static.serve', {'document_root': '/var/www/massivecoupon/'}),
@@ -54,3 +49,13 @@ urlpatterns+= patterns('django.contrib.flatpages.views',
     url(r'^faq/$', 'flatpage', {'url': '/faq/'}, name='faq'),
     url(r'^press/$', 'flatpage', {'url': '/press/'}, name='press'),
 )
+
+# Add static files
+urlpatterns += staticfiles_urlpatterns()
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+   )
