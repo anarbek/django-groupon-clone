@@ -1,7 +1,9 @@
 from django.conf.urls.defaults import patterns, include, url
-from django.contrib import admin
 from django.conf import settings
+from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.generic.simple import direct_to_template
+
 
 admin.autodiscover()
 urlpatterns = patterns('',
@@ -25,7 +27,7 @@ urlpatterns = patterns('',
     # User pages
     url(r'^user/myaccount$', 'engine.views.myaccount', name='my-account'),
     url(r'^users/new', 'engine.views.user_signup', name='user-signup'),
-#    url(r'users/(?P<username>/w+)/pages..')
+#    url(r'users/(?P<username>\w+)/pages..')
 #    url(r'^login$', 'engine.views.user_login', name='user-login'),
     url(r'^user/logout$', 'django.contrib.auth.views.logout', name='user-logout'),
 
@@ -34,9 +36,7 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     url(r'^social/', include('socialregistration.urls')),
-    
-    #FIXME: robots.txt wil not work like this
-    (r'^(robots.txt)$', 'django.views.static.serve', {'document_root': '/var/www/massivecoupon/'}),
+    (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
 )
 
 # Flatpages url
