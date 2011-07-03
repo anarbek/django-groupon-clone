@@ -257,7 +257,8 @@ def deal_checkout(request, slug):
     return {'form' : form,
             'deal' : deal,
             'must_login_error' : must_login_error,
-            'must_login_email' : must_login_email
+            'must_login_email' : must_login_email,
+            'city': deal.city
             }
 
 def deal_checkout_error(request):
