@@ -1006,7 +1006,7 @@ list-style-position:outside;
     line-height: 1.3;
 }
 
-#subscribe-content input#subscribe
+#subscribe-content button#subscribe
 {
     float: left; margin-top: 18px;   
 }
