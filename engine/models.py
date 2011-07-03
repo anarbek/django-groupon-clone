@@ -221,8 +221,8 @@ class EmailSubscribe(models.Model):
     city       = models.ForeignKey(City)
     
     class Meta:
-        verbose_name = 'EmailSubscribe'
-        verbose_name_plural = 'EmailSubscribes'
+        verbose_name = 'Email subscribe'
+        verbose_name_plural = 'Email subscribes'
         unique_together = ( ('city', 'email'),)
         
     def __unicode__(self):

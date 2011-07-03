@@ -7,10 +7,8 @@ class AdvertiserAdmin(admin.ModelAdmin):
     """admin class"""
     list_display = ('name', 'city', 'phone')
     list_filter = ('city', )
-
-class ProductCategoryAdmin(admin.ModelAdmin):
-    """admin class"""
-
+    search_fields = ('name', 'address', 'contact', 'email')
+    
 class DealAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         'slug': ( 'title', )
@@ -20,24 +18,22 @@ class DealAdmin(admin.ModelAdmin):
     
     date_navigation = 'date_published'
 
-
 class ProfileAdmin(admin.ModelAdmin):
-    """admin class"""
+    list_display = ('user', 'city')
+    list_filter = ('city', 'is_email_sub')
 
 class EmailSubAdmin(admin.ModelAdmin):
-    """admin class"""
-    pass
+    list_display = ('email', 'city')
+    list_links = list_display
+    list_filter = ('city',)
 
 class CouponAdmin(admin.ModelAdmin):
-    """admin class"""
     list_display = ['user', 'deal', 'status']
     list_filter = ('user', 'deal')
     list_per_page = 100
     search_fields = ['user', 'deal']
 
-
 class CityAdmin(admin.ModelAdmin):
-    """admin class"""
     list_display = ['name', 'province', 'is_active']
     list_per_page = 100
     search_fields = ['name']
@@ -46,10 +42,10 @@ class CityAdmin(admin.ModelAdmin):
     }
 
 
-admin.site.register(ProductCategory, ProductCategoryAdmin)
+admin.site.register(ProductCategory)
 admin.site.register(Deal, DealAdmin)
 admin.site.register(City, CityAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Coupon, CouponAdmin)
-admin.site.register(Advertiser)
+admin.site.register(Advertiser, AdvertiserAdmin)
 admin.site.register(EmailSubscribe, EmailSubAdmin)

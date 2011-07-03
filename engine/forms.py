@@ -37,8 +37,6 @@ expiry_choices_year = (
 class EmailSubForm(forms.ModelForm):
     class Meta:
         model = EmailSubscribe
-#    email               = forms.EmailField(help_text="you@domain.com", widget=forms.TextInput(attrs={'size':'25'}))
-#    city                = forms.ChoiceField(initial=1, choices=[ (obj.id, obj.name) for obj in enginemodels.City.objects.all() ])
 
 
 class SignupForm(forms.Form):
