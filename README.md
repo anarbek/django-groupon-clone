@@ -23,6 +23,7 @@
 add them to requirements.txt and delete them from repo.</strike>
  * <strike>Install django-socialregistration in requirements; clean up url entries</strike>
  * <strike>Implemented simple version for robots.txt</strike>
+ * <strike>Implemented dynamic sitemap.xml; This can be pushed to google with: `./manage.py ping_google`</strike>
 
  
 ## Original README

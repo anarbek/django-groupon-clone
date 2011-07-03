@@ -3,7 +3,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.simple import direct_to_template
+from django.contrib.sitemaps import FlatPageSitemap
+from engine.sitemaps import DealSitemap
 
+sitemaps = {
+    'deals': DealSitemap,
+    'flatpages':  FlatPageSitemap
+}
 
 admin.autodiscover()
 urlpatterns = patterns('',
@@ -37,6 +43,7 @@ urlpatterns = patterns('',
 
     url(r'^social/', include('socialregistration.urls')),
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
 )
 
 # Flatpages url
