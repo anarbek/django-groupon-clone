@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load engine_filters %}
 {% block extrascripts %}
     <script type="text/javascript" src="/media/js/jquery.countdown.js"></script>
     <script type="text/javascript" src="/media/js/jquery.progressbar/js/jquery.progressbar.js"></script>
@@ -33,7 +34,7 @@ function liftOff() {
 				<div class="fb-block">
 					<h2>The fine print</h2>
 					{{ deal.fine_print }}
-					<p><strong><a href="#">Read the deal FAQ</a></strong> for the basics</p>
+					<p><strong><a href="{% url faq %}">Read the deal FAQ</a></strong> for the basics</p>
 				</div>
 				<div class="fb-block">
 					<h2>Main Highlights</h2>
@@ -46,14 +47,14 @@ function liftOff() {
 		<div class="b-frame">
 			<div class="price">
 				<div class="frame">
-					<a href="{% url deal-checkout deal.slug %}"><strong>${{ deal.deal_price|floatformat }}</strong> <span>Buy</span></a>
+					<a href="{% url deal-checkout deal.slug %}"><strong>{{ deal.deal_price|currency }}</strong> <span>Buy</span></a>
 				</div>
 			</div>
 			<div class="details">
 				<div class="details-holder">
 					<dl>
 						<dt>Value</dt>
-						<dd><strong>${{ deal.retail_price|floatformat }}</strong></dd>
+						<dd><strong>{{ deal.retail_price|currency }}</strong></dd>
 					</dl>
 					<dl class="list2">
 						<dt>Discount</dt>
@@ -61,7 +62,7 @@ function liftOff() {
 					</dl>
 					<dl class="list3">
 						<dt>You save</dt>
-						<dd><strong>${{ deal.discount_value|floatformat }}</strong></dd>
+						<dd><strong>{{ deal.discount_value|currency }}</strong></dd>
 					</dl>
 				</div>
 			</div>

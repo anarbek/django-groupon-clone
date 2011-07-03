@@ -1,5 +1,6 @@
 # Django settings for massivecoupon project.
 import os
+import locale
 import logging
 
 DEBUG = False
@@ -34,6 +35,7 @@ TIME_ZONE = None
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
+CURRENT_LOCALE = 'en_US.UTF-8'
 LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
@@ -209,6 +211,9 @@ PAYPAL_USER  = ""
 PAYPAL_PASSWORD = ""
 PAYPAL_SIGNATURE = ""
 PAYPAL_DEBUG = True
+
+# set locale
+locale.setlocale(locale.LC_ALL, CURRENT_LOCALE)
 
 try:
     from local_settings import *
