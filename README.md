@@ -19,9 +19,10 @@
  * Localization (views, templates)
  * Add url to Advetiser (maybe)
  * <strike>Move header.html inclusion from all the templates to base.html</strike>
- * Review usage of  the following apps: countries, debug_toolbar, facebook, socialregistration, photologue, etc; 
-add them to requirements.txt and delete them from repo.
- * Install django-socialregistration in requirements; clean up url entries
+ * <strike>Review usage of  the following apps: countries, debug_toolbar, facebook, socialregistration, photologue, etc; 
+add them to requirements.txt and delete them from repo.</strike>
+ * <strike>Install django-socialregistration in requirements; clean up url entries</strike>
+ * <strike>Implemented simple version for robots.txt</strike>
 
  
 ## Original README
