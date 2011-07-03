@@ -91,7 +91,6 @@ def index(request):
 def _debug_checkout_complete(request, deal, quantity):
     return {'error': False}
 
-
 def _paypal_checkout_complete(request, deal, quantity, token):
     result = {'error': True}
     token = request.GET.get('token', None)
@@ -295,7 +294,7 @@ def city_deals(request, city_slug):
         messages.error(request, _('There are no open deals opened for city %(city)s.') % {'city': city.name})
         return HttpResponseRedirect(reverse('index'))
     
-    return {'deal' : deal, 'countdown_time' : countdown_time}
+    return {'deal' : deal, 'countdown_time' : countdown_time, 'city': city}
 
 
 #TODO: Implement suggestions / suggest a business

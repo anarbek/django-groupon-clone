@@ -199,6 +199,7 @@ WEBSITE_TITLE = "Open source Groupon clone"
 WEBSITE_URL = 'http://stupid' # un peu dummy because i don't use Site
 COMPANY_EMAIL = 'dummycontact@mailinator.com'
 COMPANY_EMAIL_INFO = 'dummyinfo@mailinator.com'
+DEFAULT_CITY = 1
 
 # My sensitive settings should be set in local_settings
 GOOGLE_MAPS_API_KEY = ''

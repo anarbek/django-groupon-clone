@@ -34,12 +34,14 @@ class CouponAdmin(admin.ModelAdmin):
     search_fields = ['user', 'deal']
 
 class CityAdmin(admin.ModelAdmin):
-    list_display = ['name', 'province', 'is_active']
+    list_display = ('name', 'province', 'is_active', 'order')
+    list_filter = ('is_active',)
     list_per_page = 100
-    search_fields = ['name']
+    search_fields = ('name',)
     prepopulated_fields = {
         'slug': ( 'name', )
     }
+    ordering = ('order', 'name')
 
 
 admin.site.register(ProductCategory)
