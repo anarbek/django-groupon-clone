@@ -64,6 +64,7 @@ def user_signup(request):
                               context_instance=RequestContext(request))
 
 
+@render_to('email_subscribe.html')
 def city_subscribe(request, city_slug):
     try:
         city = City.objects.get(slug=city_slug)
@@ -78,13 +79,10 @@ def city_subscribe(request, city_slug):
             messages.success(request, _('Thanks for subscribing!'))
             return HttpResponseRedirect(reverse('index'))
     else:
-        initial_data = { 'city': city.id }
+        initial_data = { 'city': city.id, 'email': 'E.g. you@domain.com' }
         form = EmailSubForm(initial=initial_data)
     
-    return render_to_response('email_subscribe.html', {
-                'city' : city,
-                'form' : form,
-              }, context_instance=RequestContext(request))
+    return {'city' : city, 'form' : form}
 
 
 def index(request):
