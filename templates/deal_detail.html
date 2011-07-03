@@ -1,24 +1,28 @@
 {% extends "base.html" %}
 {% load engine_filters %}
-{% block extrascripts %}
-    <script type="text/javascript" src="/media/js/jquery.countdown.js"></script>
-    <script type="text/javascript" src="/media/js/jquery.progressbar/js/jquery.progressbar.js"></script>
-{% endblock %}
-
 {% block extrajs %}
-  $().ready(function()
-  {
-{% if not deal.is_on or deal.tipping_point %}
-    $("#pb1").progressBar({{ deal.percentage_sold }});
-{% endif %}
-{% ifnotequal countdown_time -1 %}
-    var doneDay = new Date({{ countdown_time }});
-    $('div.buy-block div.txt').countdown({until: doneDay, onExpiry: liftOff, expiryText: '<p>This Deal</p><p>is</p><p><strong>OVER!</strong></p>', layout: '<p><strong>{hn}</strong> {hl}</p><p><strong>{mn}</strong> {ml}</p><p><strong>{sn}</strong> {sl}</p>'});
-{% endifnotequal %}
-  });
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.countdown.min.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.progressbar.min.js"></script>
+<script type="text/javascript">
+$().ready(function() {
+	{% if not deal.is_on or deal.tipping_point %}
+    	$("#pb1").progressBar({{ deal.percentage_sold }});
+	{% endif %}
+	{% ifnotequal countdown_time -1 %}
+    	var doneDay = new Date({{ countdown_time }});
+    	$('div.buy-block div.txt').countdown({
+    		until: doneDay, 
+    		onExpiry: liftOff, 
+    		expiryText: '<p>This Deal</p><p>is</p><p><strong>OVER!</strong></p>', 
+    		layout: '<p><strong>{hn}</strong> {hl}</p><p><strong>{mn}</strong> {ml}</p><p><strong>{sn}</strong> {sl}</p>'
+    		});
+	{% endifnotequal %}
+});
+
 function liftOff() {
-  $(".price").hide();
+	$(".price").hide();
 }
+</script>
 {% endblock extrajs %}
 
 {% block content %}
@@ -86,7 +90,7 @@ function liftOff() {
 	  			{% if deal.is_deal_on %}
 	  			<div class="deal-state">
 					<strong>The Deal in On</strong>
-					<img alt="The Deal in On" src="/media/images/ico-deal-on.gif" width="38" height="38" />
+					<img alt="The Deal in On" src="{{ MEDIA_URL }}images/ico-deal-on.gif" width="38" height="38" />
 				</div>
 				{% endif %}
 			</div>
@@ -122,7 +126,7 @@ function liftOff() {
 			</ul>
 			<div class="world-street-heading">
 				<h2 class="world-street">The world on the street:</h2>
-				<img class="png" alt="image description" src="/media/images/img2.png" width="58" height="66" />
+				<img class="png" alt="image description" src="{{ MEDIA_URL }}images/img2.png" width="58" height="66" />
 				<a class="logo2" href="#">MassiveCoupon.com</a>
 			</div>
 			<div class="world-txt">

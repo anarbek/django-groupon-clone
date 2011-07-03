@@ -1,10 +1,8 @@
 {% extends "base.html" %}
 
-{% block extrascripts %}
-    <script type="text/javascript" src="/media/js/jquery.countdown.js"></script>
-{% endblock %}
-
 {% block extrajs %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.countdown.min.js"></script>
+<script type="text/javascript">
     function CurrencyFormatted(amount)
     {
         var i = parseFloat(amount);
@@ -38,15 +36,16 @@
       $.Watermark.HideAll();
     }
 
-    $().ready(function(){
-
-      $("#id_quantity").keyup(function(){
-        update_estimated_quote();
-      });
-
-      update_estimated_quote();
-  });
-
+	$().ready(function(){
+		$("#id_quantity").keyup(function(){
+			update_estimated_quote();
+		});
+		
+    	update_estimated_quote();
+    	// Init accordion from include (i should look for a better solution)
+		$("#payment-accordion").accordion();
+    });
+</script>
 {% endblock extrajs %}
 
 {% block content %}
