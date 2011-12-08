@@ -7,3 +7,4 @@ django-socialregistration
 python-openid 			# required by socialregistration
 -e git+http://github.com/facebook/python-sdk.git#egg=facebook-sdk
 django-registration
+PIL
