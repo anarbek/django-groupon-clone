@@ -18,7 +18,7 @@ class ProfileMiddleware(object):
                 
                 if profile and not profile.is_filled():
                     # Is this a facebook authenticated used
-                    if getattr(request, 'facebook'):
+                    if hasattr(request, "facebook") and getattr(request, 'facebook'):
                         if request.facebook.user:
                             me = request.facebook.graph.get_object('me')
                             profile.fill_from_facebook(me)

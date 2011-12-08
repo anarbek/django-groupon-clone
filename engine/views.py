@@ -269,11 +269,15 @@ def deal_checkout_error(request):
 @render_to('deal_detail.html')
 def deal_detail(request, slug=None):
     if slug == None:
-        deal = Deal.objects.all()[0]
+        deal = Deal.objects.all()
+	if len(deal) == 0:
+		deal = None
+	else:
+		deal = deal[0]
     else:
         deal = get_object_or_404(Deal, slug=slug)
     
-    if not deal.is_expired(): 
+    if deal and not deal.is_expired(): 
         countdown_time = deal.date_published.strftime("%Y,%m,%d") #+ ' 11:59 PM'
     else:
         countdown_time = -1
