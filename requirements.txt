@@ -5,6 +5,6 @@ django-photologue
 #django_facebook
 django-socialregistration
 python-openid 			# required by socialregistration
--e git+http://github.com/facebook/python-sdk.git#egg=facebook-sdk
+-e git+git://github.com/pythonforfacebook/facebook-sdk.git#egg=facebook-sdk
 django-registration
 PIL
