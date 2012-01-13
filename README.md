@@ -6,6 +6,8 @@
  * Make sure all requirements are installed: `pip install -r requirements.txt`
  * Adjust your settings (DB, etc)
  * Create DB structure and import initial data: `./manage.py syncdb`
+ * Collect static files in the correct path: `./manage collectstatic`
+ * If you are testing remember to copy and edit the `local_settings.py` file.
  
  
 ## Backlog
